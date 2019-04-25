@@ -24,6 +24,12 @@ namespace RouteScheduler.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+        public DbSet<BusinessOwner> businessOwners { get; set; }
+        public DbSet<Customer> customers { get; set; }
+        public DbSet<BusinessTemplate> businessTemplates { get; set; }
+
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
