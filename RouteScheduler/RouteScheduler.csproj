@@ -204,6 +204,10 @@
     <Compile Include="Migrations\201904241949247_setroles.Designer.cs">
       <DependentUpon>201904241949247_setroles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904251428465_AllSeeded.cs" />
+    <Compile Include="Migrations\201904251428465_AllSeeded.Designer.cs">
+      <DependentUpon>201904251428465_AllSeeded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\APIKeys.cs" />
@@ -295,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904241949247_setroles.resx">
       <DependentUpon>201904241949247_setroles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904251428465_AllSeeded.resx">
+      <DependentUpon>201904251428465_AllSeeded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
