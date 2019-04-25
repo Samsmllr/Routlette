@@ -11,6 +11,8 @@ namespace RouteScheduler.Controllers
         // GET: BusinessOwner
         public ActionResult Index()
         {
+
+            //TODO: create portal for website
             return View();
         }
 
