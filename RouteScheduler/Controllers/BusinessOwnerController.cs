@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using RouteScheduler.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +11,8 @@ namespace RouteScheduler.Controllers
 {
     public class BusinessOwnerController : Controller
     {
+
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: BusinessOwner
         public ActionResult Index()
         {
@@ -25,61 +30,46 @@ namespace RouteScheduler.Controllers
         // GET: BusinessOwner/Create
         public ActionResult Create()
         {
-            return View();
+            BusinessOwner owner = new BusinessOwner();
+            return View(owner);
         }
 
         // POST: BusinessOwner/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode")] BusinessOwner businessOwner)
         {
             try
             {
-                // TODO: Add insert logic here
+                businessOwner.ApplicationId = User.Identity.GetUserId();
+                if (ModelState.IsValid)
+                {
+                    db.businessOwners.Add(businessOwner);
+                    db.SaveChanges();
+                }
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(businessOwner);
             }
         }
 
         // GET: BusinessOwner/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            var businessIs = db.businessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
+            return View(businessIs);
         }
 
         // POST: BusinessOwner/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include = "BusinessId, FirstName, LastName, Address, City, State, Zipcode")] BusinessOwner businessOwner)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BusinessOwner/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: BusinessOwner/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
+                db.Entry(businessOwner).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

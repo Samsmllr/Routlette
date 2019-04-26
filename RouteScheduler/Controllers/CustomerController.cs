@@ -61,7 +61,6 @@ namespace RouteScheduler.Controllers
                 {
                     db.Entry(customer).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
                 }
 
                 return RedirectToAction("Index");
@@ -70,6 +69,21 @@ namespace RouteScheduler.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult RequestService()
+        {
+            return View();
+        }
+
+        public ActionResult CompletedServices()
+        {
+            return View();
+        }
+
+        public ActionResult MyRequests()
+        {
+            return View();
         }
     }
 }

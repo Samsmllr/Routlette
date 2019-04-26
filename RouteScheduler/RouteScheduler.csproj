@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201904251428465_AllSeeded.Designer.cs">
       <DependentUpon>201904251428465_AllSeeded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904261536089_servicescomplete.cs" />
+    <Compile Include="Migrations\201904261536089_servicescomplete.Designer.cs">
+      <DependentUpon>201904261536089_servicescomplete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\APIKeys.cs" />
@@ -218,6 +222,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ServiceCompleted.cs" />
     <Compile Include="Models\ServiceRequested.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -284,10 +289,13 @@
     <Content Include="Views\Customer\RequestService.cshtml" />
     <Content Include="Views\Customer\MyRequests.cshtml" />
     <Content Include="Views\Customer\CompletedServices.cshtml" />
+    <Content Include="Views\BusinessOwner\Index.cshtml" />
+    <Content Include="Views\BusinessOwner\Create.cshtml" />
+    <Content Include="Views\BusinessOwner\Edit.cshtml" />
+    <Content Include="Views\BusinessOwner\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\BusinessOwner\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -311,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904251428465_AllSeeded.resx">
       <DependentUpon>201904251428465_AllSeeded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904261536089_servicescomplete.resx">
+      <DependentUpon>201904261536089_servicescomplete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

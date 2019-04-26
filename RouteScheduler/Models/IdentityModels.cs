@@ -29,6 +29,7 @@ namespace RouteScheduler.Models
         public DbSet<Customer> customers { get; set; }
         public DbSet<BusinessTemplate> businessTemplates { get; set; }
         public DbSet<ServiceRequested> serviceRequests { get; set; }
+        public DbSet<ServiceCompleted> ServicesComplete { get; set; }
 
 
         public ApplicationDbContext()
