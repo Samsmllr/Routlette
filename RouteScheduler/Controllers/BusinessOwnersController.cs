@@ -9,14 +9,16 @@ using System.Web.Mvc;
 
 namespace RouteScheduler.Controllers
 {
-    public class BusinessOwnerController : Controller
+    public class BusinessOwnersController : Controller
     {
-
+        private APIKeys aPIKeys = new APIKeys();
         private ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: BusinessOwner
         public ActionResult Index()
         {
-
+            string ApiIs = ("https://maps.googleapis.com/maps/api/js?key=" + aPIKeys.ApiKey + "&callback=initMap");
+            ViewData["ApiKey"] = ApiIs;
             //TODO: create portal for website
             return View();
         }
