@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RouteScheduler.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,18 @@ namespace RouteScheduler.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
+            if (User.IsInRole("BusinessOwner"))
+            {
+                return RedirectToAction("Index", "BusinessOwners");
+            }
+            if (User.IsInRole("Customer"))
+            {
+                return RedirectToAction("Index", "Customers");
+            }
             return View();
         }
 

@@ -283,16 +283,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Customer\Create.cshtml" />
-    <Content Include="Views\Customer\Edit.cshtml" />
-    <Content Include="Views\Customer\RequestService.cshtml" />
-    <Content Include="Views\Customer\MyRequests.cshtml" />
-    <Content Include="Views\Customer\CompletedServices.cshtml" />
-    <Content Include="Views\BusinessOwner\Index.cshtml" />
-    <Content Include="Views\BusinessOwner\Create.cshtml" />
-    <Content Include="Views\BusinessOwner\Edit.cshtml" />
-    <Content Include="Views\BusinessOwner\Details.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\RequestService.cshtml" />
+    <Content Include="Views\Customers\MyRequests.cshtml" />
+    <Content Include="Views\Customers\CompletedServices.cshtml" />
+    <Content Include="Views\BusinessOwners\Index.cshtml" />
+    <Content Include="Views\BusinessOwners\Create.cshtml" />
+    <Content Include="Views\BusinessOwners\Edit.cshtml" />
+    <Content Include="Views\BusinessOwners\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
