@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201904261536089_servicescomplete.Designer.cs">
       <DependentUpon>201904261536089_servicescomplete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904291311148_latlong.cs" />
+    <Compile Include="Migrations\201904291311148_latlong.Designer.cs">
+      <DependentUpon>201904291311148_latlong.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\APIKeys.cs" />
@@ -323,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904261536089_servicescomplete.resx">
       <DependentUpon>201904261536089_servicescomplete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904291311148_latlong.resx">
+      <DependentUpon>201904291311148_latlong.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
