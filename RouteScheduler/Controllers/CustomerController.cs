@@ -73,13 +73,31 @@ namespace RouteScheduler.Controllers
 
         public ActionResult RequestService()
         {
-            return View();
-        }
-
-        public ActionResult RequestServiceInformation()
-        {
             var ServicesAre = db.businessTemplates.ToList();
             return View(ServicesAre);
+        }
+
+        public ActionResult RequestServiceInformation(int id)
+        {
+            var CurrentService = db.businessTemplates.Where(b => b.BusinessId == id).FirstOrDefault();
+            return View(CurrentService);
+        }
+
+        [HttpPost]
+        public ActionResult RequestServiceInformation()
+        {
+            ServiceRequested serviceRequested = new ServiceRequested();
+            var currentPerson = User.Identity.GetUserId();
+            var currentUser = db.customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+
+           // serviceRequested.TemplateId;
+            serviceRequested.CustomerId = currentUser.CustomerId;
+
+
+
+            db.serviceRequests.Add(serviceRequested);
+            db.SaveChanges();
+            return View();
         }
 
         public ActionResult CompletedServices()
