@@ -37,6 +37,10 @@ namespace RouteScheduler.Models
         [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
 
+        public Double Latitude { get; set; }
+
+        public Double Longitude { get; set; }
+
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
