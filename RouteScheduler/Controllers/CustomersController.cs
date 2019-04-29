@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace RouteScheduler.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
