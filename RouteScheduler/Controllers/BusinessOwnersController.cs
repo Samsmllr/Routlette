@@ -24,9 +24,11 @@ namespace RouteScheduler.Controllers
         }
 
         // GET: BusinessOwner/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
-            return View();
+            var currentPerson = User.Identity.GetUserId();
+            var currentUser = db.businessOwners.Where(x => currentPerson == x.ApplicationId).FirstOrDefault();
+            return View(currentUser);
         }
 
         // GET: BusinessOwner/Create
