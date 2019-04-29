@@ -13,5 +13,10 @@ namespace RouteScheduler.Models
         {
             
         }
+
+        public static void ConvertCustomerAddressToLatLong(Customer customer)
+        {
+
+        }
     }
 }

@@ -76,6 +76,12 @@ namespace RouteScheduler.Controllers
             return View();
         }
 
+        public ActionResult RequestServiceInformation()
+        {
+            var ServicesAre = db.businessTemplates.ToList();
+            return View(ServicesAre);
+        }
+
         public ActionResult CompletedServices()
         {
             return View();
