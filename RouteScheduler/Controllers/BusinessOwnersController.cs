@@ -114,5 +114,13 @@ namespace RouteScheduler.Controllers
                 return View();
             }
         }
+
+        public ActionResult ViewServiceTemplates()
+        {
+            var UserResult = User.Identity.GetUserId();
+            BusinessOwner currentUser = db.businessOwners.Where(b => b.ApplicationId == UserResult).FirstOrDefault();
+            var serviceList = db.businessTemplates.Where(b => b.BusinessId == currentUser.BusinessId).ToList();
+            return View(serviceList);
+        }
     }
 }

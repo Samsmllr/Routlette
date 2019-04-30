@@ -20,5 +20,17 @@ namespace RouteScheduler.Models
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+
+        [Display(Name = "Preferred Day")]
+        public string PreferredDayOne { get; set; }
+
+        [Display(Name = "Preferred Day")]
+        public string PreferredDayTwo { get; set; }
+
+        [Display (Name = "Preferred Day")]
+        public string PreferredDayThree { get; set; }
+
+        [Display (Name = "Preferred Time")]
+        public string PreferredTime { get; set; }
     }
 }
