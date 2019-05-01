@@ -303,7 +303,6 @@
     <Content Include="Views\BusinessOwners\Details.cshtml" />
     <Content Include="Views\BusinessTemplates\Create.cshtml" />
     <Content Include="Views\BusinessTemplates\Delete.cshtml" />
-    <Content Include="Views\BusinessTemplates\Details.cshtml" />
     <Content Include="Views\BusinessTemplates\Edit.cshtml" />
     <Content Include="Views\BusinessTemplates\Index.cshtml" />
     <Content Include="Views\ServiceRequesteds\Create.cshtml" />

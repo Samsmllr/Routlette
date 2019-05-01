@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace RouteScheduler.Controllers
 {
+    [Authorize(Roles = "BusinessOwner")]
     public class BusinessOwnersController : Controller
     {
         private APIKeys aPIKeys = new APIKeys();
@@ -59,38 +60,6 @@ namespace RouteScheduler.Controllers
             }
         }
 
-        // GET: BusinessOwner/Create
-        public ActionResult CreateServiceTemplate()
-        {
-            BusinessTemplate template = new BusinessTemplate();
-            return View(template);
-        }
-
-        // POST: BusinessOwner/Create
-        [HttpPost]
-        public ActionResult CreateServiceTemplate([Bind(Include = "JobName, Price, ServiceLength")] BusinessTemplate businessTemplate)
-        {
-            try
-            {
-                var userId = User.Identity.GetUserId();
-                var businessId = db.businessOwners.Where(b => b.ApplicationId == userId).FirstOrDefault().BusinessId;
-
-                businessTemplate.BusinessId = businessId;
-
-                if (ModelState.IsValid)
-                {
-                    db.businessTemplates.Add(businessTemplate);
-                    db.SaveChanges();
-                }
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(businessTemplate);
-            }
-        }
-
 
         // GET: BusinessOwner/Edit/5
         public ActionResult Edit(int? id)
@@ -113,14 +82,6 @@ namespace RouteScheduler.Controllers
             {
                 return View();
             }
-        }
-
-        public ActionResult ViewServiceTemplates()
-        {
-            var UserResult = User.Identity.GetUserId();
-            BusinessOwner currentUser = db.businessOwners.Where(b => b.ApplicationId == UserResult).FirstOrDefault();
-            var serviceList = db.businessTemplates.Where(b => b.BusinessId == currentUser.BusinessId).ToList();
-            return View(serviceList);
         }
     }
 }

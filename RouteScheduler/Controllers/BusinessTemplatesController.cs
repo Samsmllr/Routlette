@@ -8,9 +8,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RouteScheduler.Models;
+using Microsoft.AspNet.Identity;
 
 namespace RouteScheduler.Controllers
 {
+    [Authorize(Roles = "BusinessOwner")]
     public class BusinessTemplatesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -49,17 +51,27 @@ namespace RouteScheduler.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TemplateId,BusinessId,JobName,Price,ServiceLength")] BusinessTemplate businessTemplate)
+        public async Task<ActionResult> Create([Bind(Include = "JobName,Price,ServiceLength")] BusinessTemplate businessTemplate)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.businessTemplates.Add(businessTemplate);
-                await db.SaveChangesAsync();
+                var userId = User.Identity.GetUserId();
+                var businessId = db.businessOwners.Where(b => b.ApplicationId == userId).FirstOrDefault().BusinessId;
+
+                businessTemplate.BusinessId = businessId;
+
+                if (ModelState.IsValid)
+                {
+                    db.businessTemplates.Add(businessTemplate);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
-
-            ViewBag.BusinessId = new SelectList(db.businessOwners, "BusinessId", "FirstName", businessTemplate.BusinessId);
-            return View(businessTemplate);
+            catch
+            {
+                return View(businessTemplate);
+            }
         }
 
         // GET: BusinessTemplates/Edit/5

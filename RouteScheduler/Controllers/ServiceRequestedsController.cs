@@ -50,7 +50,7 @@ namespace RouteScheduler.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RequestId,TemplateId,CustomerId,PreferredDayOne,PreferredDayTwo,PreferredDayThree,PreferredTime")] ServiceRequested serviceRequested)
+        public async Task<ActionResult> Create([Bind(Include = "RequestId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree,PreferredTime")] ServiceRequested serviceRequested)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,6 @@ namespace RouteScheduler.Controllers
             }
 
             ViewBag.TemplateId = new SelectList(db.businessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
-            ViewBag.CustomerId = new SelectList(db.customers, "CustomerId", "FirstName", serviceRequested.CustomerId);
             return View(serviceRequested);
         }
 
@@ -77,7 +76,6 @@ namespace RouteScheduler.Controllers
                 return HttpNotFound();
             }
             ViewBag.TemplateId = new SelectList(db.businessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
-            ViewBag.CustomerId = new SelectList(db.customers, "CustomerId", "FirstName", serviceRequested.CustomerId);
             return View(serviceRequested);
         }
 
@@ -86,7 +84,7 @@ namespace RouteScheduler.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "RequestId,TemplateId,CustomerId,PreferredDayOne,PreferredDayTwo,PreferredDayThree,PreferredTime")] ServiceRequested serviceRequested)
+        public async Task<ActionResult> Edit([Bind(Include = "RequestId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree,PreferredTime")] ServiceRequested serviceRequested)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +93,6 @@ namespace RouteScheduler.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.TemplateId = new SelectList(db.businessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
-            ViewBag.CustomerId = new SelectList(db.customers, "CustomerId", "FirstName", serviceRequested.CustomerId);
             return View(serviceRequested);
         }
 

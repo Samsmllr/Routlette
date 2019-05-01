@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace RouteScheduler.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class CustomersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
