@@ -192,6 +192,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BusinessOwnersController.cs" />
+    <Compile Include="Controllers\BusinessTemplatesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -303,9 +304,11 @@
     <Content Include="Views\BusinessOwners\Edit.cshtml" />
     <Content Include="Views\BusinessOwners\Details.cshtml" />
     <Content Include="Views\Customers\RequestServiceInformation.cshtml" />
-    <Content Include="Views\BusinessOwners\CreateServiceTemplate.cshtml" />
-    <Content Include="Views\BusinessOwners\DeleteServiceTemplate.cshtml" />
-    <Content Include="Views\BusinessOwners\ViewServiceTemplates.cshtml" />
+    <Content Include="Views\BusinessTemplates\Create.cshtml" />
+    <Content Include="Views\BusinessTemplates\Delete.cshtml" />
+    <Content Include="Views\BusinessTemplates\Details.cshtml" />
+    <Content Include="Views\BusinessTemplates\Edit.cshtml" />
+    <Content Include="Views\BusinessTemplates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
