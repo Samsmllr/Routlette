@@ -24,15 +24,6 @@
     </div>
     <script type="text/javascript">
 
-        var markers = [
-            ['Waukesha', 43.011677, -88.231483],
-            ['Sussex', 45.723438, -65.510872],
-            ['UWM', 43.077980, -87.881813],
-            ['Marquette', 43.038223, -87.929756],
-            ['Menomonee Falls', 43.178871, -88.117249],
-            ['Oak Creek', 42.885151, -87.908340]
-        ];
-
         var infoWindow = new google.maps.InfoWindow(), marker, i;
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
@@ -44,10 +35,6 @@
 
                 function initMap() {
             var location = { lat: 43.03, lng: -87.906 };
-            var icon = {
-                url: '../../Content/paw.jpg',
-                scaledSize: new google.maps.Size(50, 50)
-            }
             var map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 10,
                 center: location
