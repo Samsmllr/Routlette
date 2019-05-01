@@ -196,6 +196,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ServiceRequestedsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -296,19 +297,20 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Create.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
-    <Content Include="Views\Customers\RequestService.cshtml" />
-    <Content Include="Views\Customers\MyRequests.cshtml" />
-    <Content Include="Views\Customers\CompletedServices.cshtml" />
     <Content Include="Views\BusinessOwners\Index.cshtml" />
     <Content Include="Views\BusinessOwners\Create.cshtml" />
     <Content Include="Views\BusinessOwners\Edit.cshtml" />
     <Content Include="Views\BusinessOwners\Details.cshtml" />
-    <Content Include="Views\Customers\RequestServiceInformation.cshtml" />
     <Content Include="Views\BusinessTemplates\Create.cshtml" />
     <Content Include="Views\BusinessTemplates\Delete.cshtml" />
     <Content Include="Views\BusinessTemplates\Details.cshtml" />
     <Content Include="Views\BusinessTemplates\Edit.cshtml" />
     <Content Include="Views\BusinessTemplates\Index.cshtml" />
+    <Content Include="Views\ServiceRequesteds\Create.cshtml" />
+    <Content Include="Views\ServiceRequesteds\Delete.cshtml" />
+    <Content Include="Views\ServiceRequesteds\Details.cshtml" />
+    <Content Include="Views\ServiceRequesteds\Edit.cshtml" />
+    <Content Include="Views\ServiceRequesteds\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

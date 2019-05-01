@@ -1,0 +1,66 @@
+﻿@model RouteScheduler.Models.ServiceRequested
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServiceRequested</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessTemplate.JobName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessTemplate.JobName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PreferredDayOne)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreferredDayOne)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PreferredDayTwo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreferredDayTwo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PreferredDayThree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreferredDayThree)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PreferredTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreferredTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RequestId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
