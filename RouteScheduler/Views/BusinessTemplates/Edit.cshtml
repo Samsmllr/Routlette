@@ -1,4 +1,8 @@
-﻿@model RouteScheduler.Models.BusinessTemplate
+﻿@{
+    Layout = "~/Views/Shared/_LayoutBusinessOwner.cshtml";
+}
+
+@model RouteScheduler.Models.BusinessTemplate
 
 @{
     ViewBag.Title = "Edit";
@@ -9,7 +13,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>BusinessTemplate</h4>
         <hr />
