@@ -233,6 +233,7 @@
     <Compile Include="Models\GoogleLogic.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SchedulingLogic.cs" />
     <Compile Include="Models\ServiceCompleted.cs" />
     <Compile Include="Models\ServiceRequested.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

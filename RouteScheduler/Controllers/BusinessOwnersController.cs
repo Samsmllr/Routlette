@@ -9,7 +9,6 @@ using System.Web.Mvc;
 
 namespace RouteScheduler.Controllers
 {
-    [Authorize(Roles = "BusinessOwner")]
     public class BusinessOwnersController : Controller
     {
         private APIKeys aPIKeys = new APIKeys();
@@ -18,7 +17,7 @@ namespace RouteScheduler.Controllers
         // GET: BusinessOwner
         public ActionResult Index()
         {
-            string ApiIs = ("https://maps.googleapis.com/maps/api/js?key=" + aPIKeys.ApiKey + "&callback=initMap");
+            string ApiIs = ("https://www.google.com/maps/embed/v1/view?zoom=10&center=43.0389,-87.9065&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
             //TODO: create portal for website
             return View();

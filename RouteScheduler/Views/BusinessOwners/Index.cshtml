@@ -1,63 +1,14 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>*@
     <title></title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
 
-        #map {
-            height: 500px;
-            width: 100%;
-            background-color: grey;
-        }
     </style>
 </head>
 <body>
-
-
-    <div id="map">
-
-    </div>
-    <script type="text/javascript">
-
-        var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            return function () {
-                infoWindow.setContent(infoWindowContent[i][0]);
-                infoWindow.open(map, marker);
-            }
-        })(marker, i));
-
-                function initMap() {
-            var location = { lat: 43.03, lng: -87.906 };
-            var map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 10,
-                center: location
-            });
-
-            for (i = 0; i < markers.length; i++) {
-                console.log("Marker Placement initiated");
-                var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-
-                marker = new google.maps.Marker({
-                    position: position,
-                    map: map,
-
-                    icon: icon,
-                    animation: google.maps.Animation.BOUNCE
-                });
-            }
-        }
-
-
-
-    </script>
-    <script async defer src= @ViewData["ApiKey"]>
-    </script>
+    <iframe width="600" height="450" frameborder="0" style="border:0"
+            src=@ViewData["ApiKey"] allowfullscreen></iframe>
 </body>
 </html>
