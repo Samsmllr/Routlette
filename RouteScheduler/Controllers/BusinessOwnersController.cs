@@ -23,6 +23,16 @@ namespace RouteScheduler.Controllers
             return View();
         }
 
+        public ActionResult TodaysRoute()
+        {
+            var currentPerson = User.Identity.GetUserId();
+            var Longitude = db.businessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Longitude;
+            var Latitude = db.businessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Latitude;
+            string DisplayIs = ($"https://www.google.com/maps/embed/v1/view?zoom=16&center={Latitude},{Longitude}&key=" + aPIKeys.ApiKey);
+            ViewData["DisplayIs"] = DisplayIs;
+            return View();
+        }
+
         // GET: BusinessOwner/Details/5
         public ActionResult Details()
         {

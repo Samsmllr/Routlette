@@ -312,6 +312,7 @@
     <Content Include="Views\ServiceRequesteds\Edit.cshtml" />
     <Content Include="Views\ServiceRequesteds\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutBusinessOwner.cshtml" />
+    <Content Include="Views\BusinessOwners\TodaysRoute.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
