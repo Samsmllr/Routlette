@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Xml.Linq;
+using System.Xml;
+using System.Data;
+using System.Globalization;
+using System.Web.Script.Serialization;
 
 namespace RouteScheduler.Models
 {
@@ -12,14 +15,16 @@ namespace RouteScheduler.Models
          private ApplicationDbContext Context = new ApplicationDbContext();
         APIKeys apikeys = new APIKeys();
 
-        public string GeocodeAddress(string address, string city, string state)
+        public dynamic GeocodeAddress(string Address, string City, string State)
         {
-            string AddressIs = ParseString(address);
-            string CityIs = ParseString(city);
-            string StateIs = ParseString(state);
-            string getGeocode = ($"https://maps.googleapis.com/maps/api/geocode/json?address={AddressIs},+{CityIs},+{StateIs}&key=" + apikeys.ApiKey);
+            var address = ParseString(Address);
+            var city = ParseString(City);
+            var state = ParseString(State);
+            var getGeocode = String.Format($"https://maps.googleapis.com/maps/api/geocode/json?address={address},+{city},+{state}&key=" + apikeys.ApiKey);
 
-            return getGeocode;
+            var result = new System.Net.WebClient().DownloadString(getGeocode);
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            return jss.Deserialize<dynamic>(result);
         }
 
         private string ParseString(string ParseLine)
