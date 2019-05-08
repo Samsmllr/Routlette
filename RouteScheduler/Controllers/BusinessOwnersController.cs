@@ -13,6 +13,7 @@ namespace RouteScheduler.Controllers
     {
         private APIKeys aPIKeys = new APIKeys();
         private ApplicationDbContext db = new ApplicationDbContext();
+        private GoogleLogic gl = new GoogleLogic();
 
         // GET: BusinessOwner
         public ActionResult Index()
@@ -52,11 +53,17 @@ namespace RouteScheduler.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode")] BusinessOwner businessOwner)
         {
+            string address = businessOwner.Address;
+            string city = businessOwner.City;
+            string state = businessOwner.State;
+                    gl.GeocodeAddress(address, city, state);
+
             try
             {
                 businessOwner.ApplicationId = User.Identity.GetUserId();
                 if (ModelState.IsValid)
                 {
+
                     db.businessOwners.Add(businessOwner);
                     db.SaveChanges();
                 }
