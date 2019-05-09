@@ -22,15 +22,19 @@ namespace RouteScheduler.Models
         public Customer Customer { get; set; }
 
         [Display(Name = "Preferred Day")]
-        public string PreferredDayOne { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime PreferredDayOne { get; set; }
 
         [Display(Name = "Preferred Day")]
-        public string PreferredDayTwo { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime PreferredDayTwo { get; set; }
 
         [Display (Name = "Preferred Day")]
-        public string PreferredDayThree { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime PreferredDayThree { get; set; }
 
         [Display (Name = "Preferred Time")]
+        [DataType(DataType.Duration)]
         public string PreferredTime { get; set; }
     }
 }

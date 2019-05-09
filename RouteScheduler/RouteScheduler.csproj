@@ -224,6 +224,14 @@
     <Compile Include="Migrations\201904301424273_addedToServiceRequested.Designer.cs">
       <DependentUpon>201904301424273_addedToServiceRequested.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905091836099_ToDateTime.cs" />
+    <Compile Include="Migrations\201905091836099_ToDateTime.Designer.cs">
+      <DependentUpon>201905091836099_ToDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905091850041_datatypeexists.cs" />
+    <Compile Include="Migrations\201905091850041_datatypeexists.Designer.cs">
+      <DependentUpon>201905091850041_datatypeexists.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\APIKeys.cs" />
@@ -297,7 +305,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Create.cshtml" />
-    <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\BusinessOwners\Index.cshtml" />
     <Content Include="Views\BusinessOwners\Create.cshtml" />
     <Content Include="Views\BusinessOwners\Edit.cshtml" />
@@ -313,6 +320,7 @@
     <Content Include="Views\ServiceRequesteds\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutBusinessOwner.cshtml" />
     <Content Include="Views\BusinessOwners\TodaysRoute.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -348,6 +356,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904301424273_addedToServiceRequested.resx">
       <DependentUpon>201904301424273_addedToServiceRequested.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905091836099_ToDateTime.resx">
+      <DependentUpon>201905091836099_ToDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905091850041_datatypeexists.resx">
+      <DependentUpon>201905091850041_datatypeexists.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

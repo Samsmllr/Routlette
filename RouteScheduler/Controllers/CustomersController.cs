@@ -9,11 +9,11 @@ using System.Web.Mvc;
 
 namespace RouteScheduler.Controllers
 {
-    [Authorize(Roles = "Customer")]
     public class CustomersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        private GoogleLogic gl = new GoogleLogic();
+        
 
         // GET: Customer Details
         public ActionResult Index()
@@ -34,16 +34,27 @@ namespace RouteScheduler.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "CustomerId,FirstName,LastName,Address,City,State,ZipCode")] Customer customer)
         {
-            customer.ApplicationId = User.Identity.GetUserId();
-            if (ModelState.IsValid)
+            var Geocode = gl.GeocodeAddress(customer.Address, customer.City, customer.State);
+
+            try
             {
-                db.customers.Add(customer);
-                db.SaveChanges();
+                customer.ApplicationId = User.Identity.GetUserId();
+                customer.Latitude = Geocode[0];
+                customer.Longitude = Geocode[1];
+                if (ModelState.IsValid)
+                {
+                    db.customers.Add(customer);
+                    db.SaveChanges();
+
+                }
                 return RedirectToAction("Index");
             }
-
-            return View(customer);
+            catch
+            {
+                return View(customer);
+            }
         }
+            
 
         // GET: Customer/Edit/5
         public ActionResult Edit(int? id)
