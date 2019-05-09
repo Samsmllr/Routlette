@@ -42,6 +42,7 @@ namespace RouteScheduler.Controllers
         {
             ViewBag.TemplateId = new SelectList(db.businessTemplates, "TemplateId", "JobName");
             ViewBag.CustomerId = new SelectList(db.customers, "CustomerId", "FirstName");
+            ViewBag.DayId = new SelectList(db.DaySlots, "id", "PartOfDay");
             return View();
         }
 

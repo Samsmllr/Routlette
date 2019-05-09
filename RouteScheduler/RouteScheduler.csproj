@@ -232,12 +232,21 @@
     <Compile Include="Migrations\201905091850041_datatypeexists.Designer.cs">
       <DependentUpon>201905091850041_datatypeexists.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905091956027_dayslots.cs" />
+    <Compile Include="Migrations\201905091956027_dayslots.Designer.cs">
+      <DependentUpon>201905091956027_dayslots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905092000352_dayslot.cs" />
+    <Compile Include="Migrations\201905092000352_dayslot.Designer.cs">
+      <DependentUpon>201905092000352_dayslot.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\APIKeys.cs" />
     <Compile Include="Models\BusinessOwner.cs" />
     <Compile Include="Models\BusinessTemplate.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DaySlot.cs" />
     <Compile Include="Models\GoogleLogic.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -313,14 +322,14 @@
     <Content Include="Views\BusinessTemplates\Delete.cshtml" />
     <Content Include="Views\BusinessTemplates\Edit.cshtml" />
     <Content Include="Views\BusinessTemplates\Index.cshtml" />
-    <Content Include="Views\ServiceRequesteds\Create.cshtml" />
     <Content Include="Views\ServiceRequesteds\Delete.cshtml" />
-    <Content Include="Views\ServiceRequesteds\Details.cshtml" />
-    <Content Include="Views\ServiceRequesteds\Edit.cshtml" />
     <Content Include="Views\ServiceRequesteds\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutBusinessOwner.cshtml" />
     <Content Include="Views\BusinessOwners\TodaysRoute.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\ServiceRequesteds\Create.cshtml" />
+    <Content Include="Views\ServiceRequesteds\Edit.cshtml" />
+    <Content Include="Views\ServiceRequesteds\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -362,6 +371,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905091850041_datatypeexists.resx">
       <DependentUpon>201905091850041_datatypeexists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905091956027_dayslots.resx">
+      <DependentUpon>201905091956027_dayslots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905092000352_dayslot.resx">
+      <DependentUpon>201905092000352_dayslot.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
