@@ -53,14 +53,14 @@ namespace RouteScheduler.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode")] BusinessOwner businessOwner)
         {
-            string address = businessOwner.Address;
-            string city = businessOwner.City;
-            string state = businessOwner.State;
-                    gl.GeocodeAddress(address, city, state);
+            var Geocode = gl.GeocodeAddress(businessOwner.Address, businessOwner.City, businessOwner.State);
+            
 
             try
             {
                 businessOwner.ApplicationId = User.Identity.GetUserId();
+                businessOwner.Latitude = Geocode[0];
+                businessOwner.Longitude = Geocode[1];
                 if (ModelState.IsValid)
                 {
 

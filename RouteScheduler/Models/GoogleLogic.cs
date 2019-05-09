@@ -7,24 +7,31 @@ using System.Xml;
 using System.Data;
 using System.Globalization;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace RouteScheduler.Models
 {
     public class GoogleLogic
     {
-         private ApplicationDbContext Context = new ApplicationDbContext();
+        private WebClient webClient = new WebClient();
+        private ApplicationDbContext Context = new ApplicationDbContext();
         APIKeys apikeys = new APIKeys();
 
-        public dynamic GeocodeAddress(string Address, string City, string State)
+        public List<double> GeocodeAddress(string Address, string City, string State)
         {
+            List<double> list = new List<double>();
             var address = ParseString(Address);
             var city = ParseString(City);
             var state = ParseString(State);
-            var getGeocode = String.Format($"https://maps.googleapis.com/maps/api/geocode/json?address={address},+{city},+{state}&key=" + apikeys.ApiKey);
+            string getGeocode = webClient.DownloadString($"https://maps.googleapis.com/maps/api/geocode/json?address={address},+{city},+{state}&key=" + apikeys.ApiKey);
 
-            var result = new System.Net.WebClient().DownloadString(getGeocode);
-            JavaScriptSerializer jss = new JavaScriptSerializer();
-            return jss.Deserialize<dynamic>(result);
+            var obj = JsonConvert.DeserializeObject<dynamic>(getGeocode);
+            var lat = obj.results[0].geometry.location.lat.Value;
+            var lng = obj.results[0].geometry.location.lng.Value;
+            list.Add(lat);
+            list.Add(lng);
+            return (list);
         }
 
         private string ParseString(string ParseLine)
