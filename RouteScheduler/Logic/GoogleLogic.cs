@@ -21,9 +21,9 @@ namespace RouteScheduler.Models
         public List<double> GeocodeAddress(string Address, string City, string State)
         {
             List<double> list = new List<double>();
-            var address = ParseString(Address);
-            var city = ParseString(City);
-            var state = ParseString(State);
+            var address = ParseAddressString(Address);
+            var city = ParseAddressString(City);
+            var state = ParseAddressString(State);
             string getGeocode = webClient.DownloadString($"https://maps.googleapis.com/maps/api/geocode/json?address={address},+{city},+{state}&key=" + apikeys.ApiKey);
 
             var obj = JsonConvert.DeserializeObject<dynamic>(getGeocode);
@@ -34,7 +34,17 @@ namespace RouteScheduler.Models
             return (list);
         }
 
-        private string ParseString(string ParseLine)
+        public double DistanceBetweenTwoPlaces(double LatOne, double LatTwo, double LongOne, double LongTwo)
+        {
+            string GetDistance = webClient.DownloadString($"https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={LatOne},{LongOne}&destinations={LatTwo}%2C{LongTwo}&key=" + apikeys.ApiKey);
+            var obj = JsonConvert.DeserializeObject<dynamic>(GetDistance);
+            var DistanceString = obj.results[0].elements.distance.text;
+            List<string> DistanceParse = DistanceString.Split(' ').ToList();
+            var Distance = Convert.ToDouble(DistanceParse[0]);
+            return Distance;
+        }
+
+        private string ParseAddressString(string ParseLine)
         {
             List<string> ParsedIs = ParseLine.Split(' ').ToList();
             var CombinedAddress = string.Join("+", ParsedIs);

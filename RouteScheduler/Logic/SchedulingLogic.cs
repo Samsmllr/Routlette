@@ -9,6 +9,11 @@ namespace RouteScheduler.Models
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
+
+
+
+
+
         public void AvailableSchedulingTimes(ServiceRequested serviceRequested)
         {
             //var AvailableDays = insert query days here
