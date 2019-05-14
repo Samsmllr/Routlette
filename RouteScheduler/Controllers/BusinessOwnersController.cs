@@ -20,7 +20,6 @@ namespace RouteScheduler.Controllers
         {
             string ApiIs = ("https://www.google.com/maps/embed/v1/view?zoom=10&center=43.0389,-87.9065&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
-            //TODO: create portal for website
             return View();
         }
 

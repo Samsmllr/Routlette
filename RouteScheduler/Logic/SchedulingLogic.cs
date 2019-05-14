@@ -7,7 +7,7 @@ namespace RouteScheduler.Models
 {
     public class SchedulingLogic
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        readonly ApplicationDbContext db = new ApplicationDbContext();
 
 
 
@@ -17,7 +17,6 @@ namespace RouteScheduler.Models
         public void AvailableSchedulingTimes(ServiceRequested serviceRequested)
         {
             //var AvailableDays = insert query days here
-            int TimeSlots;
             List<DateTime> List = new List<DateTime>();
 
             //foreach Datetime that is equal to the hour, or equal to hour 15 minutes

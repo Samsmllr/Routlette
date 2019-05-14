@@ -15,7 +15,7 @@ namespace RouteScheduler.Models
     public class GoogleLogic
     {
         private WebClient webClient = new WebClient();
-        private ApplicationDbContext Context = new ApplicationDbContext();
+        private readonly ApplicationDbContext Context = new ApplicationDbContext();
         APIKeys apikeys = new APIKeys();
 
         public List<double> GeocodeAddress(string Address, string City, string State)
@@ -40,7 +40,7 @@ namespace RouteScheduler.Models
             var obj = JsonConvert.DeserializeObject<dynamic>(GetDistance);
             var DistanceString = obj.results[0].elements.distance.text;
             List<string> DistanceParse = DistanceString.Split(' ').ToList();
-            var Distance = Convert.ToDouble(DistanceParse[0]);
+            double Distance = Convert.ToDouble(DistanceParse[0]);
             return Distance;
         }
 

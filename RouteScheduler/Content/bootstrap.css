@@ -70,7 +70,9 @@ body {
     line-height: 1.5;
     color: #919aa1;
     text-align: left;
-    background-color: #fff;
+    background-image: url('/Images/corporate-grey-low-poly-geometric-motion-background-video-animation-hd-1920x1080_nypfik1eg__F0008.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 [tabindex="-1"]:focus {
