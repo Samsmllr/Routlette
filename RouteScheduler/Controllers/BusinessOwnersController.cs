@@ -24,8 +24,8 @@ namespace RouteScheduler.Controllers
             ServiceRequested service = new ServiceRequested();
 
             var UserId = User.Identity.GetUserId();
-            double lat = db.businessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Latitude;
-            double lng = db.businessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
+            double lat = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Latitude;
+            double lng = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
             sl.EachDay(1, date, time, service);
             string ApiIs = ($"https://www.google.com/maps/embed/v1/view?zoom=10&center={lat},{lng}&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
@@ -35,8 +35,8 @@ namespace RouteScheduler.Controllers
         public ActionResult TodaysRoute()
         {
             var currentPerson = User.Identity.GetUserId();
-            var Longitude = db.businessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Longitude;
-            var Latitude = db.businessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Latitude;
+            var Longitude = db.BusinessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Longitude;
+            var Latitude = db.BusinessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Latitude;
             string DisplayIs = ($"https://www.google.com/maps/embed/v1/view?zoom=16&center={Latitude},{Longitude}&key=" + aPIKeys.ApiKey);
             ViewData["DisplayIs"] = DisplayIs;
             return View();
@@ -45,7 +45,7 @@ namespace RouteScheduler.Controllers
         public ActionResult Calendar()
         {
             var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.businessOwners.Where(x => currentPerson == x.ApplicationId).FirstOrDefault();
+            var currentUser = db.BusinessOwners.Where(x => currentPerson == x.ApplicationId).FirstOrDefault();
             return View(currentUser);
         }
 
@@ -53,7 +53,7 @@ namespace RouteScheduler.Controllers
         public ActionResult Details()
         {
             var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.businessOwners.Where(x => currentPerson == x.ApplicationId).FirstOrDefault();
+            var currentUser = db.BusinessOwners.Where(x => currentPerson == x.ApplicationId).FirstOrDefault();
             return View(currentUser);
         }
 
@@ -79,7 +79,7 @@ namespace RouteScheduler.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    db.businessOwners.Add(businessOwner);
+                    db.BusinessOwners.Add(businessOwner);
                     db.SaveChanges();
                 }
 
@@ -95,7 +95,7 @@ namespace RouteScheduler.Controllers
         // GET: BusinessOwner/Edit/5
         public ActionResult Edit(int? id)
         {
-            var businessIs = db.businessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
+            var businessIs = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
             return View(businessIs);
         }
 

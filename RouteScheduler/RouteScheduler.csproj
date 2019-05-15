@@ -199,47 +199,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904241908377_initial.cs" />
-    <Compile Include="Migrations\201904241908377_initial.Designer.cs">
-      <DependentUpon>201904241908377_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904241949247_setroles.cs" />
-    <Compile Include="Migrations\201904241949247_setroles.Designer.cs">
-      <DependentUpon>201904241949247_setroles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904251428465_AllSeeded.cs" />
-    <Compile Include="Migrations\201904251428465_AllSeeded.Designer.cs">
-      <DependentUpon>201904251428465_AllSeeded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904261536089_servicescomplete.cs" />
-    <Compile Include="Migrations\201904261536089_servicescomplete.Designer.cs">
-      <DependentUpon>201904261536089_servicescomplete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291311148_latlong.cs" />
-    <Compile Include="Migrations\201904291311148_latlong.Designer.cs">
-      <DependentUpon>201904291311148_latlong.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904301424273_addedToServiceRequested.cs" />
-    <Compile Include="Migrations\201904301424273_addedToServiceRequested.Designer.cs">
-      <DependentUpon>201904301424273_addedToServiceRequested.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905091836099_ToDateTime.cs" />
-    <Compile Include="Migrations\201905091836099_ToDateTime.Designer.cs">
-      <DependentUpon>201905091836099_ToDateTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905091850041_datatypeexists.cs" />
-    <Compile Include="Migrations\201905091850041_datatypeexists.Designer.cs">
-      <DependentUpon>201905091850041_datatypeexists.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905091956027_dayslots.cs" />
-    <Compile Include="Migrations\201905091956027_dayslots.Designer.cs">
-      <DependentUpon>201905091956027_dayslots.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905092000352_dayslot.cs" />
-    <Compile Include="Migrations\201905092000352_dayslot.Designer.cs">
-      <DependentUpon>201905092000352_dayslot.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Logic\APIKeys.cs" />
     <Compile Include="Models\BusinessOwner.cs" />
@@ -247,6 +206,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DaySlot.cs" />
     <Compile Include="Logic\GoogleLogic.cs" />
+    <Compile Include="Models\Event.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Logic\SchedulingLogic.cs" />
@@ -379,38 +339,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904241908377_initial.resx">
-      <DependentUpon>201904241908377_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904241949247_setroles.resx">
-      <DependentUpon>201904241949247_setroles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904251428465_AllSeeded.resx">
-      <DependentUpon>201904251428465_AllSeeded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904261536089_servicescomplete.resx">
-      <DependentUpon>201904261536089_servicescomplete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291311148_latlong.resx">
-      <DependentUpon>201904291311148_latlong.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904301424273_addedToServiceRequested.resx">
-      <DependentUpon>201904301424273_addedToServiceRequested.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905091836099_ToDateTime.resx">
-      <DependentUpon>201905091836099_ToDateTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905091850041_datatypeexists.resx">
-      <DependentUpon>201905091850041_datatypeexists.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905091956027_dayslots.resx">
-      <DependentUpon>201905091956027_dayslots.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905092000352_dayslot.resx">
-      <DependentUpon>201905092000352_dayslot.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

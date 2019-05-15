@@ -20,10 +20,9 @@ namespace RouteScheduler.Models
             List<DateTime> list = new List<DateTime>();
             DateTime DateIs = date;
             int NumberHold = 0;
-            db.businessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
+            db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
 
-
-            foreach()
+           
             
 
 
