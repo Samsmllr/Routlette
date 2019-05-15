@@ -14,6 +14,7 @@ namespace RouteScheduler.Controllers
         private APIKeys aPIKeys = new APIKeys();
         private ApplicationDbContext db = new ApplicationDbContext();
         private GoogleLogic gl = new GoogleLogic();
+        private SchedulingLogic sl = new SchedulingLogic();
 
         // GET: BusinessOwner
         public ActionResult Index()
@@ -52,7 +53,10 @@ namespace RouteScheduler.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode")] BusinessOwner businessOwner)
         {
+            TimeSpan time = new TimeSpan(2);
+            DateTime date = new DateTime(12/14/2019);
             var Geocode = gl.GeocodeAddress(businessOwner.Address, businessOwner.City, businessOwner.State);
+            sl.EachDay(businessOwner.BusinessId, date, time);
             
 
             try
