@@ -19,7 +19,15 @@ namespace RouteScheduler.Controllers
         // GET: BusinessOwner
         public ActionResult Index()
         {
-            string ApiIs = ("https://www.google.com/maps/embed/v1/view?zoom=10&center=43.0389,-87.9065&key=" + aPIKeys.ApiKey);
+            DateTime date = new DateTime(12 / 24 / 2019);
+            TimeSpan time = new TimeSpan(3);
+            ServiceRequested service = new ServiceRequested();
+
+            var UserId = User.Identity.GetUserId();
+            double lat = db.businessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Latitude;
+            double lng = db.businessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
+            sl.EachDay(1, date, time, service);
+            string ApiIs = ($"https://www.google.com/maps/embed/v1/view?zoom=10&center={lat},{lng}&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
             return View();
         }
@@ -32,6 +40,13 @@ namespace RouteScheduler.Controllers
             string DisplayIs = ($"https://www.google.com/maps/embed/v1/view?zoom=16&center={Latitude},{Longitude}&key=" + aPIKeys.ApiKey);
             ViewData["DisplayIs"] = DisplayIs;
             return View();
+        }
+
+        public ActionResult Calendar()
+        {
+            var currentPerson = User.Identity.GetUserId();
+            var currentUser = db.businessOwners.Where(x => currentPerson == x.ApplicationId).FirstOrDefault();
+            return View(currentUser);
         }
 
         // GET: BusinessOwner/Details/5
@@ -53,10 +68,7 @@ namespace RouteScheduler.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode")] BusinessOwner businessOwner)
         {
-            TimeSpan time = new TimeSpan(2);
-            DateTime date = new DateTime(12/14/2019);
             var Geocode = gl.GeocodeAddress(businessOwner.Address, businessOwner.City, businessOwner.State);
-            sl.EachDay(businessOwner.BusinessId, date, time);
             
 
             try

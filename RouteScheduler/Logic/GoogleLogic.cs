@@ -16,7 +16,7 @@ namespace RouteScheduler.Models
     {
         private WebClient webClient = new WebClient();
         private readonly ApplicationDbContext Context = new ApplicationDbContext();
-        APIKeys apikeys = new APIKeys();
+        private APIKeys apikeys = new APIKeys();
 
         public List<double> GeocodeAddress(string Address, string City, string State)
         {
