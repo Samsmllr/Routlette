@@ -19,7 +19,7 @@ namespace RouteScheduler.Controllers
         public ActionResult Index()
         {
             var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
             return View(currentUser);
         }
 
@@ -43,7 +43,7 @@ namespace RouteScheduler.Controllers
                 customer.Longitude = Geocode[1];
                 if (ModelState.IsValid)
                 {
-                    db.customers.Add(customer);
+                    db.Customers.Add(customer);
                     db.SaveChanges();
 
                 }
@@ -59,7 +59,7 @@ namespace RouteScheduler.Controllers
         // GET: Customer/Edit/5
         public ActionResult Edit(int? id)
         {
-            var customerIs = db.customers.Where(c => c.CustomerId == id).FirstOrDefault();
+            var customerIs = db.Customers.Where(c => c.CustomerId == id).FirstOrDefault();
             return View(customerIs);
         }
 
@@ -85,13 +85,13 @@ namespace RouteScheduler.Controllers
 
         public ActionResult RequestService()
         {
-            var ServicesAre = db.businessTemplates.ToList();
+            var ServicesAre = db.BusinessTemplates.ToList();
             return View(ServicesAre);
         }
 
         public ActionResult RequestServiceInformation(int id)
         {
-            var CurrentService = db.businessTemplates.Where(b => b.BusinessId == id).FirstOrDefault();
+            var CurrentService = db.BusinessTemplates.Where(b => b.BusinessId == id).FirstOrDefault();
             return View(CurrentService);
         }
 
@@ -100,14 +100,14 @@ namespace RouteScheduler.Controllers
         {
             ServiceRequested serviceRequested = new ServiceRequested();
             var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
 
            // serviceRequested.TemplateId;
             serviceRequested.CustomerId = currentUser.CustomerId;
 
 
 
-            db.serviceRequests.Add(serviceRequested);
+            db.ServiceRequests.Add(serviceRequested);
             db.SaveChanges();
             return View();
         }

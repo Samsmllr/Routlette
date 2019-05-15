@@ -42,11 +42,49 @@ namespace RouteScheduler.Controllers
             return View();
         }
 
-        public ActionResult Calendar()
+        public ActionResult Calendar(int id)
         {
-            var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.BusinessOwners.Where(x => currentPerson == x.ApplicationId).FirstOrDefault();
-            return View(currentUser);
+            
+            return View();
+        }
+
+        public ActionResult AssignToSchedule(int? id)
+        {
+            Event newEvent = new Event();
+            var Customer = db.Customers.Where(b => b.CustomerId == id).FirstOrDefault();
+            newEvent.CustomerId = Customer.CustomerId;
+            return View(newEvent);
+        }
+
+        [HttpPost]
+        public ActionResult AssignToSchedule([Bind(Include = "CustomerId,Latitude,Longitude,StartDate,EndDate")] Event @event)
+        {
+
+            try
+            {
+                var UserId = User.Identity.GetUserId();
+                var business = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault();
+                @event.BusinessId = business.BusinessId;
+                if (ModelState.IsValid)
+                {
+
+                    db.Events.Add(@event);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Calendar");
+            }
+            catch
+            {
+                return View(@event);
+            }
+            
+        }
+
+
+
+        public ActionResult DisplayRoute()
+        {
+            return View();
         }
 
         // GET: BusinessOwner/Details/5

@@ -20,7 +20,7 @@ namespace RouteScheduler.Controllers
         // GET: BusinessTemplates
         public async Task<ActionResult> Index()
         {
-            var businessTemplates = db.businessTemplates.Include(b => b.BusinessOwner);
+            var businessTemplates = db.BusinessTemplates.Include(b => b.BusinessOwner);
             return View(await businessTemplates.ToListAsync());
         }
 
@@ -31,7 +31,7 @@ namespace RouteScheduler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BusinessTemplate businessTemplate = await db.businessTemplates.FindAsync(id);
+            BusinessTemplate businessTemplate = await db.BusinessTemplates.FindAsync(id);
             if (businessTemplate == null)
             {
                 return HttpNotFound();
@@ -42,7 +42,7 @@ namespace RouteScheduler.Controllers
         // GET: BusinessTemplates/Create
         public ActionResult Create()
         {
-            ViewBag.BusinessId = new SelectList(db.businessOwners, "BusinessId", "FirstName");
+            ViewBag.BusinessId = new SelectList(db.BusinessOwners, "BusinessId", "FirstName");
             return View();
         }
 
@@ -56,13 +56,13 @@ namespace RouteScheduler.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
-                var businessId = db.businessOwners.Where(b => b.ApplicationId == userId).FirstOrDefault().BusinessId;
+                var businessId = db.BusinessOwners.Where(b => b.ApplicationId == userId).FirstOrDefault().BusinessId;
 
                 businessTemplate.BusinessId = businessId;
 
                 if (ModelState.IsValid)
                 {
-                    db.businessTemplates.Add(businessTemplate);
+                    db.BusinessTemplates.Add(businessTemplate);
                     db.SaveChanges();
                 }
 
@@ -81,12 +81,12 @@ namespace RouteScheduler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BusinessTemplate businessTemplate = await db.businessTemplates.FindAsync(id);
+            BusinessTemplate businessTemplate = await db.BusinessTemplates.FindAsync(id);
             if (businessTemplate == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.BusinessId = new SelectList(db.businessOwners, "BusinessId", "FirstName", businessTemplate.BusinessId);
+            ViewBag.BusinessId = new SelectList(db.BusinessOwners, "BusinessId", "FirstName", businessTemplate.BusinessId);
             return View(businessTemplate);
         }
 
@@ -103,7 +103,7 @@ namespace RouteScheduler.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.BusinessId = new SelectList(db.businessOwners, "BusinessId", "FirstName", businessTemplate.BusinessId);
+            ViewBag.BusinessId = new SelectList(db.BusinessOwners, "BusinessId", "FirstName", businessTemplate.BusinessId);
             return View(businessTemplate);
         }
 
@@ -114,7 +114,7 @@ namespace RouteScheduler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BusinessTemplate businessTemplate = await db.businessTemplates.FindAsync(id);
+            BusinessTemplate businessTemplate = await db.BusinessTemplates.FindAsync(id);
             if (businessTemplate == null)
             {
                 return HttpNotFound();
@@ -127,8 +127,8 @@ namespace RouteScheduler.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            BusinessTemplate businessTemplate = await db.businessTemplates.FindAsync(id);
-            db.businessTemplates.Remove(businessTemplate);
+            BusinessTemplate businessTemplate = await db.BusinessTemplates.FindAsync(id);
+            db.BusinessTemplates.Remove(businessTemplate);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

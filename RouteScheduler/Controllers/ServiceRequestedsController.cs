@@ -18,7 +18,7 @@ namespace RouteScheduler.Controllers
         // GET: ServiceRequesteds
         public async Task<ActionResult> Index()
         {
-            var serviceRequests = db.serviceRequests.Include(s => s.BusinessTemplate).Include(s => s.Customer);
+            var serviceRequests = db.ServiceRequests.Include(s => s.BusinessTemplate).Include(s => s.Customer);
             return View(await serviceRequests.ToListAsync());
         }
 
@@ -29,7 +29,7 @@ namespace RouteScheduler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceRequested serviceRequested = await db.serviceRequests.FindAsync(id);
+            ServiceRequested serviceRequested = await db.ServiceRequests.FindAsync(id);
             if (serviceRequested == null)
             {
                 return HttpNotFound();
@@ -40,8 +40,8 @@ namespace RouteScheduler.Controllers
         // GET: ServiceRequesteds/Create
         public ActionResult Create()
         {
-            ViewBag.TemplateId = new SelectList(db.businessTemplates, "TemplateId", "JobName");
-            ViewBag.CustomerId = new SelectList(db.customers, "CustomerId", "FirstName");
+            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName");
+            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "FirstName");
             ViewBag.DayId = new SelectList(db.DaySlots, "id", "PartOfDay");
             return View();
         }
@@ -55,12 +55,12 @@ namespace RouteScheduler.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.serviceRequests.Add(serviceRequested);
+                db.ServiceRequests.Add(serviceRequested);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TemplateId = new SelectList(db.businessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
+            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
             return View(serviceRequested);
         }
 
@@ -71,12 +71,12 @@ namespace RouteScheduler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceRequested serviceRequested = await db.serviceRequests.FindAsync(id);
+            ServiceRequested serviceRequested = await db.ServiceRequests.FindAsync(id);
             if (serviceRequested == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.TemplateId = new SelectList(db.businessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
+            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
             return View(serviceRequested);
         }
 
@@ -93,7 +93,7 @@ namespace RouteScheduler.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.TemplateId = new SelectList(db.businessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
+            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
             return View(serviceRequested);
         }
 
@@ -104,7 +104,7 @@ namespace RouteScheduler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceRequested serviceRequested = await db.serviceRequests.FindAsync(id);
+            ServiceRequested serviceRequested = await db.ServiceRequests.FindAsync(id);
             if (serviceRequested == null)
             {
                 return HttpNotFound();
@@ -117,8 +117,8 @@ namespace RouteScheduler.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            ServiceRequested serviceRequested = await db.serviceRequests.FindAsync(id);
-            db.serviceRequests.Remove(serviceRequested);
+            ServiceRequested serviceRequested = await db.ServiceRequests.FindAsync(id);
+            db.ServiceRequests.Remove(serviceRequested);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
