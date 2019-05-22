@@ -34,7 +34,7 @@ namespace RouteScheduler.Models
             return (list);
         }
 
-        public double DistanceBetweenTwoPlaces(double LatOne, double LatTwo, double LongOne, double LongTwo)
+        public double DistanceBetweenTwoPlaces(double LatOne, double LongOne, double LatTwo, double LongTwo)
         {
             string GetDistance = webClient.DownloadString($"https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={LatOne},{LongOne}&destinations={LatTwo}%2C{LongTwo}&key=" + apikeys.ApiKey);
             var obj = JsonConvert.DeserializeObject<dynamic>(GetDistance);

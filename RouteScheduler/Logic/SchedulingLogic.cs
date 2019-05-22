@@ -11,52 +11,46 @@ namespace RouteScheduler.Models
     {
         readonly ApplicationDbContext db = new ApplicationDbContext();
         private WebClient webClient = new WebClient();
+        private GoogleLogic gl = new GoogleLogic();
 
 
-        public List<DateTime> EachDay(int id, DateTime date, TimeSpan duration, ServiceRequested service)
+        public List<DateTime> AvailableTimes(int id, ServiceRequested service)
         {
-            string GetEvents = webClient.DownloadString("http://localhost:58619/api/events");
-            var obj = JsonConvert.DeserializeObject<dynamic>(GetEvents);
-            List<DateTime> list = new List<DateTime>();
-            DateTime DateIs = date;
-            int NumberHold = 0;
-            db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
-
-           
+            List<DateTime> dateListInitial = new List<DateTime>() {service.PreferredDayOne, service.PreferredDayTwo, service.PreferredDayThree };
+            List<DateTime> DateListModified = new List<DateTime>();
             
-
-
-            if (list.Count == 0)
+            for(int i = 0; i < dateListInitial.Count; i++)
             {
-                for (int i = 0; i <= 95; i++)
-                {
-                    DateIs.AddMinutes(15);
-                    list.Add(DateIs);
-                }
-            }
-            else
-            {
-                do
-                {
-                    //if (DateIs < list[NumberHold].StartTime && DateIs + duration <= list[NumberHold].StartTime)
-                    //{
-                    //    list.Add(DateIs);
-                    //}
-                    //else if (DateIs >= list[NumberHold].EndTime && NumberHold < list.Count - 1)
-                    //{
-                    //    NumberHold += 1;
-                    //}
-                    //else
-                    //{
+                List<Event> EventList = db.Events.Where(e => e.BusinessId == id).ToList().Where(e => e.StartDate.Date == dateListInitial[i].Date).ToList();
 
-                    //}
-                    //DateIs.AddMinutes(15);
-                } while (DateIs.Date == date.Date);
 
             }
+            //foreach (DateTime day in dateList)
+            //{
+            //    List<Event> dayEvents = db.Events.Where(e => e.StartDate.Date == day.Date).ToList();
+            //    if(dayEvents.Count == 0)
+            //    {
 
-            return list;
+            //    }
+            //    else
+            //    {
+            //        foreach (Event @event in dayEvents)
+            //        {
+            //            double distance = gl.DistanceBetweenTwoPlaces(@event.Latitude, @event.Longitude, service.Customer.Latitude, service.Customer.Longitude);
+            //            if (distance >= 15)
+            //            {
+            //                dateList.Remove(day);
+            //            }
+            //        }
+            //    }
+            //}
+             return DateListModified;
         }
 
+        //private bool EventsArentTooFar(int id, DateTime date)
+        //{
+            
+        //}
+        
     }
 }

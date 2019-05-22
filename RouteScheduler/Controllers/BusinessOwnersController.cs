@@ -26,7 +26,7 @@ namespace RouteScheduler.Controllers
             var UserId = User.Identity.GetUserId();
             double lat = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Latitude;
             double lng = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
-            sl.EachDay(1, date, time, service);
+            sl.AvailableTimes(1, date, service);
             string ApiIs = ($"https://www.google.com/maps/embed/v1/view?zoom=10&center={lat},{lng}&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
             return View();
@@ -42,7 +42,7 @@ namespace RouteScheduler.Controllers
             return View();
         }
 
-        public ActionResult Calendar(int id)
+        public ActionResult Calendar()
         {
             
             return View();
