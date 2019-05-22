@@ -26,7 +26,7 @@ namespace RouteScheduler.Controllers
             var UserId = User.Identity.GetUserId();
             double lat = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Latitude;
             double lng = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
-            sl.AvailableTimes(1, date, service);
+            sl.AvailableTimes(1, service);
             string ApiIs = ($"https://www.google.com/maps/embed/v1/view?zoom=10&center={lat},{lng}&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
             return View();
@@ -79,6 +79,14 @@ namespace RouteScheduler.Controllers
             }
             
         }
+
+        public ActionResult ViewServiceRequests()
+        {
+            var currentPerson = User.Identity.GetUserId();
+            var serviceRequests = db.ServiceRequests.Where(e => e.BusinessTemplate.BusinessOwner.ApplicationId == currentPerson);
+            return View(serviceRequests);
+        }
+
 
 
 
