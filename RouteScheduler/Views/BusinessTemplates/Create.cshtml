@@ -7,53 +7,55 @@
 @{
     ViewBag.Title = "Create a Service";
 }
+<div class="body-content bg-light">
+    <br />
+    <h2>Create your service</h2>
 
-<h2>Create your service</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h6>Create a new job service for your business.</h6>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<div class="form-horizontal">
-    <h6>Create a new job service for your business.</h6>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.JobName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.JobName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.JobName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="input-group col-md-10">
-            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-            <div class="input-group-append">
-                <span class="input-group-text">.00</span>
+            <div class="form-group">
+                @Html.LabelFor(model => model.JobName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.JobName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.JobName, "", new { @class = "text-danger" })
+                </div>
             </div>
-            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ServiceLength, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="input-group col-md-10">
-            @Html.EditorFor(model => model.ServiceLength, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ServiceLength, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
+            <div class="form-group">
+                @Html.LabelFor(model => model.ServiceLength, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group col-md-10">
+                    @Html.EditorFor(model => model.ServiceLength, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ServiceLength, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-<div>
-    @Html.ActionLink("Back to service list", "Index")
-</div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to service list", "Index")
+    </div>
+    </div>

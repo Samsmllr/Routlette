@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -19,17 +21,18 @@ namespace RouteScheduler.Controllers
         // GET: BusinessOwner
         public ActionResult Index()
         {
-            DateTime date = new DateTime(12 / 24 / 2019);
-            TimeSpan time = new TimeSpan(3);
             ServiceRequested service = new ServiceRequested();
 
             var UserId = User.Identity.GetUserId();
             double lat = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Latitude;
             double lng = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
-            sl.AvailableTimes(1, service);
             string ApiIs = ($"https://www.google.com/maps/embed/v1/view?zoom=10&center={lat},{lng}&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
-            return View();
+
+            //var serviceRequests = db.ServiceRequests.Include(s => s.BusinessTemplate).Include(s => s.Customer);
+
+            var eventsAre = db.Events.Where(e => e.Customer.ApplicationId == UserId);
+            return View(eventsAre);
         }
 
         public ActionResult TodaysRoute()
@@ -78,6 +81,20 @@ namespace RouteScheduler.Controllers
                 return View(@event);
             }
             
+        }
+
+        public async Task<ActionResult> ScheduleeDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServiceRequested serviceRequested = await db.ServiceRequests.FindAsync(id);
+            if (serviceRequested == null)
+            {
+                return HttpNotFound();
+            }
+            return View(serviceRequested);
         }
 
         public ActionResult ViewServiceRequests()

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -29,6 +30,38 @@ namespace RouteScheduler.Controllers
             Customer customer = new Customer();
             return View(customer);
         }
+
+        public ActionResult CreateServiceRequest()
+        {
+            var currentPerson = User.Identity.GetUserId();
+            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName");
+            ServiceRequested service = new ServiceRequested();
+            service.Customer = currentUser;
+            return View(service);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateServiceRequest([Bind(Include = "RequestId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree")] ServiceRequested serviceRequested)
+        {
+            if (ModelState.IsValid)
+            {
+                db.ServiceRequests.Add(serviceRequested);
+                await db.SaveChangesAsync();
+                return RedirectToAction("ViewRequestedServices");
+            }
+
+            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
+            return View(serviceRequested);
+        }
+
+        public async Task<ActionResult> ViewRequestedServices()
+        {
+            var serviceRequests = db.ServiceRequests.Include(s => s.BusinessTemplate).Include(s => s.Customer);
+            return View(await serviceRequests.ToListAsync());
+        }
+
 
         // POST: Customer/Create
         [HttpPost]

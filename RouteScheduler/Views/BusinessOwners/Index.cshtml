@@ -2,6 +2,7 @@
     Layout = "~/Views/Shared/_LayoutBusinessOwner.cshtml";
 }
 
+@model IEnumerable<RouteScheduler.Models.Event>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +12,53 @@
     </style>
 </head>
 <body>
+
     <div class="body-content bg-light">
         <br />
-        <iframe width="600" height="400" frameborder="0" style="border:0"
-                src=@ViewData["ApiKey"] allowfullscreen></iframe>
+        <h3>Welcome, name!</h3>
+        <div class-="container">
+            <div class="row">
+                <div class="col-7">
+                    <h4>Events Scheduled For Today:</h4>
+
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Time
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Customer.City)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer.FirstName + " " + item.Customer.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate.TimeOfDay)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("View Address", "Edit", new { id = item.CustomerId })
+                                </td>
+                            </tr>
+                        }
+                        </table>
+                </div>
+                <div class="col-5">
+                    <br />
+                    <iframe width="400" height="400" frameborder="0" style="border:0"
+                            src=@ViewData["ApiKey"] allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
+        <br />
+    </div>
 </body>
 </html>
