@@ -199,6 +199,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905230112459_dlete.cs" />
+    <Compile Include="Migrations\201905230112459_dlete.Designer.cs">
+      <DependentUpon>201905230112459_dlete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905230113162_servicelength.cs" />
+    <Compile Include="Migrations\201905230113162_servicelength.Designer.cs">
+      <DependentUpon>201905230113162_servicelength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Logic\APIKeys.cs" />
     <Compile Include="Models\BusinessOwner.cs" />
@@ -347,6 +356,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905230112459_dlete.resx">
+      <DependentUpon>201905230112459_dlete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905230113162_servicelength.resx">
+      <DependentUpon>201905230113162_servicelength.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

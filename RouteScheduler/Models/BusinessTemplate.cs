@@ -27,8 +27,7 @@ namespace RouteScheduler.Models
 
         [Required]
         [Display(Name = "Service Length")]
-        public int ServiceLength { get; set; }
-
+        public TimeSpan ServiceLength { get; set; }
 
     }
 }

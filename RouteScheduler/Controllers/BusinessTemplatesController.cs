@@ -12,7 +12,6 @@ using Microsoft.AspNet.Identity;
 
 namespace RouteScheduler.Controllers
 {
-    [Authorize(Roles = "BusinessOwner")]
     public class BusinessTemplatesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

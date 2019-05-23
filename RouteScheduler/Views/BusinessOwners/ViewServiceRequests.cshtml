@@ -1,38 +1,48 @@
-﻿@model IEnumerable<RouteScheduler.Models.ServiceRequested>
+﻿@{
+    Layout = "~/Views/Shared/_LayoutBusinessOwner.cshtml";
+}
+
+@model IEnumerable<RouteScheduler.Models.ServiceRequested>
 
 @{
     ViewBag.Title = "Service Requests";
 }
+<div class="body-content bg-light">
+    <br />
+    <h2>Your job requests</h2>
 
-<h2>Your job requests</h2>
 
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BusinessTemplate.JobName)
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.City)
+            </th>
+            <th></th>
+        </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BusinessTemplate.JobName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer.FirstName)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusinessTemplate.JobName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.FirstName + " " + item.Customer.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.City)
+                </td>
+                <td>
+                    @Html.ActionLink("Schedule this person", "Edit", new { id = item.RequestId })
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BusinessTemplate.JobName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PreferredDayThree)
-        </td>
-        <td>
-            @Html.ActionLink("Schedule this person", "Edit", new { id=item.RequestId })
-        </td>
-    </tr>
-}
-
-</table>
+    </table>
+    </div>
