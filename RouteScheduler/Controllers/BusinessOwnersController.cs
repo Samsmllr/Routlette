@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +18,7 @@ namespace RouteScheduler.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private GoogleLogic gl = new GoogleLogic();
         private SchedulingLogic sl = new SchedulingLogic();
+        private static readonly HttpClient client = new HttpClient();
 
         // GET: BusinessOwner
         public ActionResult Index()
@@ -28,9 +30,14 @@ namespace RouteScheduler.Controllers
             double lng = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
             string ApiIs = ($"https://www.google.com/maps/embed/v1/view?zoom=10&center={lat},{lng}&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
-
             ViewData["NameIs"] = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().FirstName;
-            var eventsAre = db.Events.Where(e => e.Customer.ApplicationId == UserId);
+
+
+            var responseString = client.GetStringAsync("http://localhost:58619/api/events");
+
+
+
+            string eventsAre;
             return View(eventsAre);
         }
 
@@ -52,35 +59,13 @@ namespace RouteScheduler.Controllers
 
         public ActionResult AssignToSchedule(int? id)
         {
-            Event newEvent = new Event();
-            var Customer = db.Customers.Where(b => b.CustomerId == id).FirstOrDefault();
-            newEvent.CustomerId = Customer.CustomerId;
-            return View(newEvent);
+            //Event newEvent = new Event();
+            //var Customer = db.Customers.Where(b => b.CustomerId == id).FirstOrDefault();
+            //newEvent.CustomerId = Customer.CustomerId;
+            return View();
         }
 
-        [HttpPost]
-        public ActionResult AssignToSchedule([Bind(Include = "CustomerId,Latitude,Longitude,StartDate,EndDate")] Event @event)
-        {
-
-            try
-            {
-                var UserId = User.Identity.GetUserId();
-                var business = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault();
-                @event.BusinessId = business.BusinessId;
-                if (ModelState.IsValid)
-                {
-
-                    db.Events.Add(@event);
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Calendar");
-            }
-            catch
-            {
-                return View(@event);
-            }
-            
-        }
+       
 
         public async Task<ActionResult> ScheduleeDetails(int? id)
         {

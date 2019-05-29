@@ -16,6 +16,7 @@ namespace RouteScheduler.Models
 
         public void GetEvents(int id)
         {
+            List<string> list;
             string getEvents = webClient.DownloadString($"http://localhost:58619/api/events");
 
 
