@@ -29,8 +29,7 @@ namespace RouteScheduler.Controllers
             string ApiIs = ($"https://www.google.com/maps/embed/v1/view?zoom=10&center={lat},{lng}&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
 
-            //var serviceRequests = db.ServiceRequests.Include(s => s.BusinessTemplate).Include(s => s.Customer);
-
+            ViewData["NameIs"] = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().FirstName;
             var eventsAre = db.Events.Where(e => e.Customer.ApplicationId == UserId);
             return View(eventsAre);
         }

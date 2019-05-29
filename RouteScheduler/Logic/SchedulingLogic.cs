@@ -14,6 +14,14 @@ namespace RouteScheduler.Models
         private GoogleLogic gl = new GoogleLogic();
 
 
+        public void GetEvents(int id)
+        {
+            string getEvents = webClient.DownloadString($"http://localhost:58619/api/events");
+
+
+        }
+
+
         public List<DateTime> AvailableTimes(int id, ServiceRequested service)
         {
             List<DateTime> dateListInitial = new List<DateTime>() {service.PreferredDayOne, service.PreferredDayTwo, service.PreferredDayThree };
