@@ -24,8 +24,6 @@ namespace RouteScheduler.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
-        public DbSet<Event> Events { get; set; }
         public DbSet<BusinessOwner> BusinessOwners { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<BusinessTemplate> BusinessTemplates { get; set; }

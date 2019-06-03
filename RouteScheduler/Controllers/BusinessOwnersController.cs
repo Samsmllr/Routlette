@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using RouteScheduler.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace RouteScheduler.Controllers
 {
@@ -18,7 +21,7 @@ namespace RouteScheduler.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private GoogleLogic gl = new GoogleLogic();
         private SchedulingLogic sl = new SchedulingLogic();
-        private static readonly HttpClient client = new HttpClient();
+        private WebClient webClient = new WebClient();
 
         // GET: BusinessOwner
         public ActionResult Index()
@@ -32,13 +35,16 @@ namespace RouteScheduler.Controllers
             ViewData["ApiKey"] = ApiIs;
             ViewData["NameIs"] = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().FirstName;
 
-
-            var responseString = client.GetStringAsync("http://localhost:58619/api/events");
-
-
-
-            string eventsAre;
-            return View(eventsAre);
+            try
+            {
+            var responseString = webClient.DownloadString("http://localhost:58619/api/events");
+            var obj = JsonConvert.DeserializeObject<dynamic>(responseString);
+            return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         public ActionResult TodaysRoute()

@@ -3,7 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace RouteScheduler.Models
 {
@@ -12,15 +15,7 @@ namespace RouteScheduler.Models
         readonly ApplicationDbContext db = new ApplicationDbContext();
         private WebClient webClient = new WebClient();
         private GoogleLogic gl = new GoogleLogic();
-
-
-        public void GetEvents(int id)
-        {
-            List<string> list;
-            string getEvents = webClient.DownloadString($"http://localhost:58619/api/events");
-
-
-        }
+        private static readonly HttpClient client = new HttpClient();
 
 
         public List<DateTime> AvailableTimes(int id, ServiceRequested service)
@@ -30,36 +25,15 @@ namespace RouteScheduler.Models
             
             for(int i = 0; i < dateListInitial.Count; i++)
             {
-                List<Event> EventList = db.Events.Where(e => e.BusinessId == id).ToList().Where(e => e.StartDate.Date == dateListInitial[i].Date).ToList();
+                //querry
 
-
+                //where querry date == dateListInitial[i].Date and int id == querry id
+                //foreach var singleevent in querried events return to datelistinbetween
+            
             }
-            //foreach (DateTime day in dateList)
-            //{
-            //    List<Event> dayEvents = db.Events.Where(e => e.StartDate.Date == day.Date).ToList();
-            //    if(dayEvents.Count == 0)
-            //    {
-
-            //    }
-            //    else
-            //    {
-            //        foreach (Event @event in dayEvents)
-            //        {
-            //            double distance = gl.DistanceBetweenTwoPlaces(@event.Latitude, @event.Longitude, service.Customer.Latitude, service.Customer.Longitude);
-            //            if (distance >= 15)
-            //            {
-            //                dateList.Remove(day);
-            //            }
-            //        }
-            //    }
-            //}
+            
              return DateListModified;
         }
-
-        //private bool EventsArentTooFar(int id, DateTime date)
-        //{
-            
-        //}
         
     }
 }
