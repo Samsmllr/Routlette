@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RouteScheduler.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,16 @@ namespace RouteScheduler.Models
         public List<DateTime> AvailableTimes(int id, ServiceRequested service)
         {
             List<DateTime> dateListInitial = new List<DateTime>() {service.PreferredDayOne, service.PreferredDayTwo, service.PreferredDayThree };
+            List<EventsHolder> EventsList;
             List<DateTime> DateListModified = new List<DateTime>();
             
             for(int i = 0; i < dateListInitial.Count; i++)
             {
-                //querry
-
-                //where querry date == dateListInitial[i].Date and int id == querry id
-                //foreach var singleevent in querried events return to datelistinbetween
+                EventsList = gl.GetEventsByIdAndDay(id, dateListInitial[i]);
+                if(EventsList.Count <= 0)
+                {
+                    
+                }
             
             }
             
