@@ -41,6 +41,14 @@ namespace RouteScheduler.Models
 
         public Double Longitude { get; set; }
 
+        [Required]
+        [Display(Name = "Daily Start Time")]
+        public TimeSpan DayStart { get; set; }
+
+        [Required]
+        [Display(Name = "Daily End Time")]
+        public TimeSpan DayEnd { get; set; }
+
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
