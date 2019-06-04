@@ -1,6 +1,7 @@
 ﻿using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
+using RouteScheduler.Logic;
 using RouteScheduler.Models;
 using System;
 using System.Collections.Generic;
@@ -26,26 +27,28 @@ namespace RouteScheduler.Controllers
         // GET: BusinessOwner
         public ActionResult Index()
         {
-            ServiceRequested service = new ServiceRequested();
-
             var UserId = User.Identity.GetUserId();
+            BusinessOwner UserIs = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault();
             double lat = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Latitude;
             double lng = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
             string ApiIs = ($"https://www.google.com/maps/embed/v1/view?zoom=10&center={lat},{lng}&key=" + aPIKeys.ApiKey);
             ViewData["ApiKey"] = ApiIs;
-            ViewData["NameIs"] = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().FirstName;
+            ViewData["NameIs"] = UserIs.FirstName;
 
             try
             {
-            var responseString = webClient.DownloadString("http://localhost:58619/api/events");
-            var obj = JsonConvert.DeserializeObject<dynamic>(responseString);
-            return View();
+                List<EventsHolder> events = gl.GetEventsByIdAndDay(UserIs.BusinessId, DateTime.Now);
+            return View(events);
             }
             catch
             {
                 return View();
             }
         }
+
+
+
+
 
         public ActionResult TodaysRoute()
         {

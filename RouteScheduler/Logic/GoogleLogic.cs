@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using RouteScheduler.Logic;
 
 namespace RouteScheduler.Models
 {
@@ -50,5 +51,31 @@ namespace RouteScheduler.Models
             var CombinedAddress = string.Join("+", ParsedIs);
             return CombinedAddress;
         }
+
+        public List<EventsHolder> GetEventsByIdAndDay(int id, DateTime day)
+        {
+            List<EventsHolder> list = new List<EventsHolder>();
+            string getEvents = webClient.DownloadString("http://localhost:58619/api/events");
+            var obj = JsonConvert.DeserializeObject<dynamic>(getEvents);
+            EventsHolder events;
+            foreach(var item in obj)
+            {
+                events = new EventsHolder();
+                if (item.UserId == id && item.StartDate.Date == day.Date)
+                {
+                    events.UserId = item.UserId;
+                    events.CustomerId = item.CustomerId;
+                    events.StartDate = item.StartDate;
+                    events.EndDate = item.EndDate;
+                    events.Latitude = item.Latitude;
+                    events.Longitude = item.Longitude;
+
+                    list.Add(events);
+                }
+            }
+            return list;
+        }
+
+
     }
 }

@@ -7,5 +7,17 @@ namespace RouteScheduler.Logic
 {
     public class EventsHolder
     {
+            public int UserId { get; set; }
+            public int CustomerId { get; set; }
+            public string EventName { get; set; }
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+
+        public EventsHolder()
+        {
+
+        }
     }
 }
