@@ -37,7 +37,7 @@ namespace RouteScheduler.Controllers
 
             try
             {
-                List<EventsHolder> events = gl.GetEventsByIdAndDay(UserIs.BusinessId, DateTime.Now);
+                 List<EventsHolder> events = gl.GetEventsByIdAndDay(UserIs.BusinessId, DateTime.Now);
             return View(events);
             }
             catch

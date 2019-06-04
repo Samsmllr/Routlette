@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_LayoutBusinessOwner.cshtml";
 }
 
-@model List<events>
+@model IEnumerable<RouteScheduler.Logic.EventsHolder>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,18 +32,18 @@
                             <th></th>
                         </tr>
 
-                        @foreach (var item in model)
+                        @foreach (var item in Model)
                         {
                             <tr>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.Customer.FirstName + " " + item.Customer.LastName)
+                                <td>
+                                    @Html.DisplayFor(ModelItem => item.Customer.FirstName + item.Customer.LastName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.StartDate.TimeOfDay)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("View Address", "Edit", new { id = item.CustomerId })
-                                </td>*@
+                                    @Html.ActionLink("View Address", "Edit", new { id = item.Customer.CustomerId })
+                                </td>
                             </tr>
                         }
                         </table>
