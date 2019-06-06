@@ -122,7 +122,7 @@ namespace RouteScheduler.Controllers
 
         // POST: BusinessOwner/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode")] BusinessOwner businessOwner)
+        public ActionResult Create([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode, DayStart, DayEnd")] BusinessOwner businessOwner)
         {
             var Geocode = gl.GeocodeAddress(businessOwner.Address, businessOwner.City, businessOwner.State);
             
@@ -151,13 +151,13 @@ namespace RouteScheduler.Controllers
         // GET: BusinessOwner/Edit/5
         public ActionResult Edit(int? id)
         {
-            var businessIs = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
+            BusinessOwner businessIs = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
             return View(businessIs);
         }
 
         // POST: BusinessOwner/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "BusinessId, FirstName, LastName, Address, City, State, Zipcode")] BusinessOwner businessOwner)
+        public ActionResult Edit([Bind(Include = "BusinessId, FirstName, LastName, Address, City, State, Zipcode, DayStart, DayEnd")] BusinessOwner businessOwner)
         {
             try
             {

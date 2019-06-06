@@ -31,9 +31,16 @@
                             </th>
                             <th></th>
                         </tr>
-
-                        @foreach (var item in Model)
+                        @if (Model == null)
                         {
+                            <tr>
+                                <td>Whoops, something went wrong on our end!</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(ModelItem => item.Customer.FirstName + item.Customer.LastName)
@@ -45,6 +52,7 @@
                                     @Html.ActionLink("View Address", "Edit", new { id = item.Customer.CustomerId })
                                 </td>
                             </tr>
+                            }
                         }
                         </table>
                 </div>
