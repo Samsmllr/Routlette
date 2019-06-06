@@ -24,13 +24,39 @@ namespace RouteScheduler.Models
             List<DateTime> dateListInitial = new List<DateTime>() {service.PreferredDayOne, service.PreferredDayTwo, service.PreferredDayThree };
             List<EventsHolder> EventsList;
             List<DateTime> DateListModified = new List<DateTime>();
+            BusinessOwner businessOwner = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
             
             for(int i = 0; i < dateListInitial.Count; i++)
             {
                 EventsList = gl.GetEventsByIdAndDay(id, dateListInitial[i]);
-                if(EventsList.Count <= 0)
+                DateTime time = dateListInitial[i].Date + businessOwner.DayStart;
+
+                if (EventsList.Count <= 0)
                 {
-                    
+                    do
+                    {
+                        DateListModified.Add(time);
+                        time.AddMinutes(15);
+                    }
+                    while (time + service.BusinessTemplate.ServiceLength <= dateListInitial[i].Date + businessOwner.DayEnd);
+                }
+                else
+                {
+                    foreach(var eventIs in EventsList)
+                    {
+                        do
+                        {
+                            if (eventIs.StartDate >= time + service.BusinessTemplate.ServiceLength)
+                            {
+                                DateListModified.Add(time);
+                                time.AddMinutes(15);
+                            }
+                            else if (eventIs.StartDate < time + service.BusinessTemplate.ServiceLength)
+                            {
+                                time.Add(service.BusinessTemplate.ServiceLength);
+                            }
+                        } while (time < eventIs.StartDate);
+                    }
                 }
             
             }

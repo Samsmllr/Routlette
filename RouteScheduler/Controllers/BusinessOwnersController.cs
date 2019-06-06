@@ -149,26 +149,32 @@ namespace RouteScheduler.Controllers
 
 
         // GET: BusinessOwner/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            BusinessOwner businessIs = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
-            return View(businessIs);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BusinessOwner businessOwner = await db.BusinessOwners.FindAsync(id);
+            if (businessOwner == null)
+            {
+                return HttpNotFound();
+            }
+            return View(businessOwner);
         }
 
         // POST: BusinessOwner/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "BusinessId, FirstName, LastName, Address, City, State, Zipcode, DayStart, DayEnd")] BusinessOwner businessOwner)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "ApplicationId, Latitude, Longitude, BusinessId, FirstName, LastName, Address, City, State, Zipcode, DayStart, DayEnd")] BusinessOwner businessOwner)
         {
-            try
+            if (ModelState.IsValid)
             {
                 db.Entry(businessOwner).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(businessOwner);
         }
     }
 }

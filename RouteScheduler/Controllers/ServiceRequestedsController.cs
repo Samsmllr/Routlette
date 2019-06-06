@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RouteScheduler.Models;
+using Microsoft.AspNet.Identity;
 
 namespace RouteScheduler.Controllers
 {
@@ -18,7 +19,9 @@ namespace RouteScheduler.Controllers
         // GET: ServiceRequesteds
         public async Task<ActionResult> Index()
         {
-            var serviceRequests = db.ServiceRequests.Include(s => s.BusinessTemplate).Include(s => s.Customer);
+            var currentPerson = User.Identity.GetUserId();
+            BusinessOwner businessOwner = db.BusinessOwners.Where(b => b.ApplicationId == currentPerson).FirstOrDefault();
+            var serviceRequests = db.ServiceRequests.Where(s => s.BusinessTemplate.BusinessId == businessOwner.BusinessId).Include(s => s.BusinessTemplate).Include(s => s.Customer);
             return View(await serviceRequests.ToListAsync());
         }
 

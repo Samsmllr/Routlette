@@ -19,7 +19,9 @@ namespace RouteScheduler.Controllers
         // GET: BusinessTemplates
         public async Task<ActionResult> Index()
         {
-            var businessTemplates = db.BusinessTemplates.Include(b => b.BusinessOwner);
+            var currentPerson = User.Identity.GetUserId();
+            BusinessOwner businessOwner = db.BusinessOwners.Where(b => b.ApplicationId == currentPerson).FirstOrDefault();
+            var businessTemplates = db.BusinessTemplates.Where(b => b.BusinessId == businessOwner.BusinessId).Include(b => b.BusinessOwner);
             return View(await businessTemplates.ToListAsync());
         }
 
@@ -41,8 +43,9 @@ namespace RouteScheduler.Controllers
         // GET: BusinessTemplates/Create
         public ActionResult Create()
         {
+            BusinessTemplate businessTemplate = new BusinessTemplate();
             ViewBag.BusinessId = new SelectList(db.BusinessOwners, "BusinessId", "FirstName");
-            return View();
+            return View(businessTemplate);
         }
 
         // POST: BusinessTemplates/Create
