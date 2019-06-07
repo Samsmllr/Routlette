@@ -66,15 +66,41 @@ namespace RouteScheduler.Controllers
             return View();
         }
 
+
         public ActionResult AssignToSchedule(int? id)
         {
-            //Event newEvent = new Event();
-            //var Customer = db.Customers.Where(b => b.CustomerId == id).FirstOrDefault();
-            //newEvent.CustomerId = Customer.CustomerId;
-            return View();
+            ServiceRequested service = db.ServiceRequests.Where(s => s.RequestId == id).FirstOrDefault();
+            EventsHolder events = new EventsHolder();
+
+            events.Customer = service.Customer;
+            events.UserId = service.BusinessTemplate.BusinessId;
+            events.EventName = service.Customer.LastName + " " + service.BusinessTemplate.JobName;
+            events.Latitude = service.Customer.Latitude;
+            events.Longitude = service.Customer.Longitude;
+            ViewData["DateList"] = sl.AvailableTimes(service.BusinessTemplate.BusinessId, service);
+
+            return View(events);
         }
 
-       
+
+        [HttpPost]
+        public ActionResult AssignToSchedule([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode, DayStart, DayEnd")] BusinessOwner businessOwner)
+        {
+            var Geocode = gl.GeocodeAddress(businessOwner.Address, businessOwner.City, businessOwner.State);
+
+
+            try
+            {
+               
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(businessOwner);
+            }
+        }
+
+
 
         public async Task<ActionResult> ScheduleeDetails(int? id)
         {

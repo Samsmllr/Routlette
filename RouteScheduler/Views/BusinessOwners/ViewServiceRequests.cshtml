@@ -39,7 +39,7 @@
                     @Html.DisplayFor(modelItem => item.Customer.City)
                 </td>
                 <td>
-                    @Html.ActionLink("Schedule this person", "Edit", new { id = item.RequestId })
+                    @Html.ActionLink("Schedule this person", "AssignToSchedule", new { id = item.RequestId })
                 </td>
             </tr>
         }
