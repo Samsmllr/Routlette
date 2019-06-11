@@ -84,19 +84,17 @@ namespace RouteScheduler.Controllers
 
 
         [HttpPost]
-        public ActionResult AssignToSchedule([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode, DayStart, DayEnd")] BusinessOwner businessOwner)
+        public ActionResult AssignToSchedule([Bind(Include = "Customer,UserId,EventName,Latitude,Longitude,StartDate,EndDate")] EventsHolder events)
         {
-            var Geocode = gl.GeocodeAddress(businessOwner.Address, businessOwner.City, businessOwner.State);
-
 
             try
             {
-               
+                string json = JsonConvert.SerializeObject(events);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View(businessOwner);
+                return View(events);
             }
         }
 
