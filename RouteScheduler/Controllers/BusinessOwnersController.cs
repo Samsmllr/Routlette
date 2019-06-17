@@ -31,8 +31,10 @@ namespace RouteScheduler.Controllers
             BusinessOwner UserIs = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault();
             double lat = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Latitude;
             double lng = db.BusinessOwners.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
-            string ApiIs = ($"https://www.google.com/maps/embed/v1/view?zoom=10&center={lat},{lng}&key=" + aPIKeys.ApiKey);
+            string ApiIs = ($"https://maps.googleapis.com/maps/api/js?key=" + aPIKeys.ApiKey + "&callback=initMap");
             ViewData["ApiKey"] = ApiIs;
+            ViewData["Lat"] = lat;
+            ViewData["Lng"] = lng;
             ViewData["NameIs"] = UserIs.FirstName;
 
             try
@@ -71,20 +73,22 @@ namespace RouteScheduler.Controllers
         {
             ServiceRequested service = db.ServiceRequests.Where(s => s.RequestId == id).FirstOrDefault();
             EventsHolder events = new EventsHolder();
+           
 
-            events.Customer = service.Customer;
+            events.CustomerId = service.Customer.CustomerId;
             events.UserId = service.BusinessTemplate.BusinessId;
             events.EventName = service.Customer.LastName + " " + service.BusinessTemplate.JobName;
             events.Latitude = service.Customer.Latitude;
             events.Longitude = service.Customer.Longitude;
-            ViewData["DateList"] = sl.AvailableTimes(service.BusinessTemplate.BusinessId, service);
-
+            var DateListIs = sl.AvailableTimes(service.BusinessTemplate.BusinessId, service);
+            ViewBag.DateList = new SelectList(DateListIs);
+            ViewData["CustomerInformation"] = service.Customer;
             return View(events);
         }
 
 
         [HttpPost]
-        public ActionResult AssignToSchedule([Bind(Include = "Customer,UserId,EventName,Latitude,Longitude,StartDate,EndDate")] EventsHolder events)
+        public ActionResult AssignToSchedule([Bind(Include = "CustomerId,UserId,EventName,Latitude,Longitude,StartDate,EndDate")] EventsHolder events)
         {
 
             try

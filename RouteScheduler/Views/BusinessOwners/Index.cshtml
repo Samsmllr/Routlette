@@ -9,6 +9,11 @@
     @*<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>*@
     <title></title>
     <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+       
     </style>
 </head>
 <body>
@@ -43,13 +48,13 @@
                             {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(ModelItem => item.Customer.FirstName + item.Customer.LastName)
+                                    @Html.DisplayFor(ModelItem => item.EventName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.StartDate.TimeOfDay)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("View Address", "Edit", new { id = item.Customer.CustomerId })
+                                    @Html.ActionLink("View Address", "Edit", new { id = item.CustomerId })
                                 </td>
                             </tr>
                             }
@@ -58,8 +63,18 @@
                 </div>
                 <div class="col-5">
                     <br />
-                    <iframe width="400" height="400" frameborder="0" style="border:0"
-                            src=@ViewData["ApiKey"] allowfullscreen></iframe>
+                    <div id="map"></div>
+                    <script>
+                        function initMap() {
+                            var home = { lat: @ViewData["Lat"], lng: @ViewData["Lng"] };
+                            var map = new google.maps.Map(
+                                document.getElementById('map'), { zoom: 14, center: home });
+                            var marker = new google.maps.Marker({ position: home, map: map });
+                        }
+                    </script>
+                    <script async defer
+                            src=@ViewData["ApiKey"]>
+                    </script>
                 </div>
             </div>
         </div>

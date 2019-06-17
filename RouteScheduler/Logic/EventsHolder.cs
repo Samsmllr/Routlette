@@ -9,7 +9,7 @@ namespace RouteScheduler.Logic
     public class EventsHolder
     {
             public int UserId { get; set; }
-            public Customer Customer { get; set; }
+            public int CustomerId { get; set; }
             public string EventName { get; set; }
             public double Latitude { get; set; }
             public double Longitude { get; set; }

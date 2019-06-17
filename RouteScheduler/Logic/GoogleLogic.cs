@@ -65,7 +65,6 @@ namespace RouteScheduler.Models
                 {
                     int CustomerIdIs = item.CustomerId;
                     events.UserId = item.UserId;
-                    events.Customer = Context.Customers.Where(c => c.CustomerId == CustomerIdIs).FirstOrDefault();
                     events.StartDate = item.StartDate;
                     events.EndDate = item.EndDate;
                     events.Latitude = item.Latitude;
