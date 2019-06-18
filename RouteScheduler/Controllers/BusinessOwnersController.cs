@@ -67,12 +67,27 @@ namespace RouteScheduler.Controllers
 
         public ActionResult ScheduleeDetails(int? id)
         {
-            var currentPerson = User.Identity.GetUserId();
-            BusinessOwner UserIs = db.BusinessOwners.Where(b => b.ApplicationId == currentPerson).FirstOrDefault();
-            Customer customer = db.Customers.Where(c => c.CustomerId == id).FirstOrDefault();
-            EventsHolder eventIs = gl.GetEventsByIdAndDay(UserIs.BusinessId, DateTime.Now).Where(e => e.CustomerId == customer.CustomerId).FirstOrDefault();
-            ViewData["TodaysEvent"] = eventIs;
-            return View(customer);
+            try
+            {
+                var currentPerson = User.Identity.GetUserId();
+                BusinessOwner UserIs = db.BusinessOwners.Where(b => b.ApplicationId == currentPerson).FirstOrDefault();
+                Customer customer = db.Customers.Where(c => c.CustomerId == id).FirstOrDefault();
+                List<EventsHolder> eventList = gl.GetEventsByIdAndDay(UserIs.BusinessId, DateTime.Now);
+                    if (eventList != null)
+                {
+                    EventsHolder eventIs = eventList.Where(e => e.CustomerId == customer.CustomerId).FirstOrDefault();
+                    ViewData["EventStart"] = eventIs.StartDate.TimeOfDay;
+                    ViewData["EventEnd"] = eventIs.EndDate.TimeOfDay;
+                    ViewData["EventName"] = eventIs.EventName;
+                    ViewData["Lat"] = customer.Latitude;
+                    ViewData["Lng"] = customer.Longitude;
+                }
+                return View(customer);
+            }
+            catch
+            {
+                return View("Index");
+            }
         }
 
         public ActionResult AssignToSchedule(int? id)

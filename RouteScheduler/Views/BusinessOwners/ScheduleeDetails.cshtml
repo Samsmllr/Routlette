@@ -1,7 +1,69 @@
-﻿
-@{
-    ViewBag.Title = "ScheduleeDetails";
+﻿@{
+    Layout = "~/Views/Shared/_LayoutBusinessOwner.cshtml";
 }
 
-<h2>ScheduleeDetails</h2>
+@model RouteScheduler.Models.Customer
 
+<!DOCTYPE html>
+<html>
+<head>
+    @*<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>*@
+    <title></title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="body-content bg-light">
+        <br />
+        <h3>
+            @Html.DisplayFor(model => model.FirstName + " " + model.LastName)
+        </h3>
+        <div class-="container">
+            <div class="row">
+                <div class="col-7">
+                    <table class="table">
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => model.Address + ", " + model.City + ", " + model.State + ", " + model.ZipCode)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @ViewData["EventStart"] - @ViewData["EventEnd"]
+                            </th>
+                            <th>
+                                @ViewData["EventName"]
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-5">
+                    <br />
+                    <div id="map"></div>
+                    <script>
+                        function initMap() {
+                            var home = { lat: @ViewData["Lat"], lng: @ViewData["Lng"] };
+                            var map = new google.maps.Map(
+                                document.getElementById('map'), { zoom: 14, center: home });
+                            var marker = new google.maps.Marker({ position: home, map: map });
+                        }
+                    </script>
+                    <script async defer
+                            src=@ViewData["ApiKey"]>
+                    </script>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</body>
+</html>
