@@ -49,9 +49,6 @@ namespace RouteScheduler.Controllers
         }
 
 
-
-
-
         public ActionResult TodaysRoute()
         {
             var currentPerson = User.Identity.GetUserId();
@@ -68,6 +65,15 @@ namespace RouteScheduler.Controllers
             return View();
         }
 
+        public ActionResult ScheduleeDetails(int? id)
+        {
+            var currentPerson = User.Identity.GetUserId();
+            BusinessOwner UserIs = db.BusinessOwners.Where(b => b.ApplicationId == currentPerson).FirstOrDefault();
+            Customer customer = db.Customers.Where(c => c.CustomerId == id).FirstOrDefault();
+            EventsHolder eventIs = gl.GetEventsByIdAndDay(UserIs.BusinessId, DateTime.Now).Where(e => e.CustomerId == customer.CustomerId).FirstOrDefault();
+            ViewData["TodaysEvent"] = eventIs;
+            return View(customer);
+        }
 
         public ActionResult AssignToSchedule(int? id)
         {
@@ -100,22 +106,6 @@ namespace RouteScheduler.Controllers
             {
                 return View(events);
             }
-        }
-
-
-
-        public async Task<ActionResult> ScheduleeDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServiceRequested serviceRequested = await db.ServiceRequests.FindAsync(id);
-            if (serviceRequested == null)
-            {
-                return HttpNotFound();
-            }
-            return View(serviceRequested);
         }
 
         public ActionResult ViewServiceRequests()

@@ -337,6 +337,7 @@
     <Content Include="Views\Customers\CreateServiceRequest.cshtml" />
     <Content Include="Views\BusinessOwners\Edit.cshtml" />
     <Content Include="Views\BusinessOwners\AssignToSchedule.cshtml" />
+    <Content Include="Views\BusinessOwners\ScheduleeDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
