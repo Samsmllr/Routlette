@@ -88,7 +88,6 @@ namespace RouteScheduler.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BusinessId = new SelectList(db.BusinessOwners, "BusinessId", "FirstName", businessTemplate.BusinessId);
             return View(businessTemplate);
         }
 
@@ -97,7 +96,7 @@ namespace RouteScheduler.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "TemplateId,BusinessId,JobName,Price,ServiceLength")] BusinessTemplate businessTemplate)
+        public async Task<ActionResult> Edit([Bind(Include = "TemplateId,JobName,Price,ServiceLength")] BusinessTemplate businessTemplate)
         {
             if (ModelState.IsValid)
             {

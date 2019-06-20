@@ -20,7 +20,7 @@ namespace RouteScheduler.Controllers
     {
         private APIKeys aPIKeys = new APIKeys();
         private ApplicationDbContext db = new ApplicationDbContext();
-        private GoogleLogic gl = new GoogleLogic();
+        private APILogic gl = new APILogic();
         private SchedulingLogic sl = new SchedulingLogic();
         private WebClient webClient = new WebClient();
 
@@ -115,6 +115,20 @@ namespace RouteScheduler.Controllers
             try
             {
                 string json = JsonConvert.SerializeObject(events);
+                //var client = new RestClient("http://localhost:58619/api/events");
+                //var request = new RestRequest(Method.POST);
+                //request.AddHeader("cache-control", "no-cache");
+                //request.AddHeader("Connection", "keep-alive");
+                //request.AddHeader("content-length", "241");
+                //request.AddHeader("accept-encoding", "gzip, deflate");
+                //request.AddHeader("Host", "localhost:58619");
+                //request.AddHeader("Postman-Token", "0d7f89d7-1757-459b-96ba-e844e006df70,a8f6cf71-0c8a-486d-bafd-867212a6ceb1");
+                //request.AddHeader("Cache-Control", "no-cache");
+                //request.AddHeader("Accept", "*/*");
+                //request.AddHeader("User-Agent", "PostmanRuntime/7.15.0");
+                //request.AddHeader("Content-Type", "application/json");
+                //request.AddParameter("undefined", "    {\n        \"UserId\": 0,\n        \"CustomerId\": 0,\n        \"EventName\": \"TestEvent\",\n        \"Latitude\": 43.060169,\n        \"Longitude\": -87.891701,\n        \"StartDate\": \"2019-06-12T00:00:00\",\n        \"EndDate\": \"2019-06-12T00:00:00\"\n    }\n", ParameterType.RequestBody);
+                //IRestResponse response = client.Execute(request);
                 return RedirectToAction("Index");
             }
             catch

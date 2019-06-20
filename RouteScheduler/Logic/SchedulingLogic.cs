@@ -15,7 +15,7 @@ namespace RouteScheduler.Models
     {
         readonly ApplicationDbContext db = new ApplicationDbContext();
         private WebClient webClient = new WebClient();
-        private GoogleLogic gl = new GoogleLogic();
+        private APILogic gl = new APILogic();
         private static readonly HttpClient client = new HttpClient();
 
 

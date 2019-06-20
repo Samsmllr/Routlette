@@ -13,7 +13,7 @@ namespace RouteScheduler.Controllers
     public class CustomersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private GoogleLogic gl = new GoogleLogic();
+        private APILogic gl = new APILogic();
         
 
         // GET: Customer Details

@@ -13,7 +13,7 @@ using RouteScheduler.Logic;
 
 namespace RouteScheduler.Models
 {
-    public class GoogleLogic
+    public class APILogic
     {
         private WebClient webClient = new WebClient();
         private readonly ApplicationDbContext Context = new ApplicationDbContext();
