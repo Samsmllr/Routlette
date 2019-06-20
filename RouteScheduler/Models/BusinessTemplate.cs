@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace RouteScheduler.Models
 {
@@ -28,6 +29,11 @@ namespace RouteScheduler.Models
         [Required]
         [Display(Name = "Service Length")]
         public TimeSpan ServiceLength { get; set; }
+
+        [Display(Name = "Job Details")]
+        [Required(ErrorMessage = "Job details are required.")]
+        [AllowHtml]
+        public string JobDetails { get; set; }
 
     }
 }
