@@ -206,7 +206,7 @@
     <Compile Include="Models\BusinessTemplate.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DaySlot.cs" />
-    <Compile Include="Logic\GoogleLogic.cs" />
+    <Compile Include="Logic\APILogic.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Logic\SchedulingLogic.cs" />
