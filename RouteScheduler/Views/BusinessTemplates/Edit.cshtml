@@ -7,13 +7,14 @@
 @{
     ViewBag.Title = "Edit";
 }
-<div class="body-content bg-light">
-    <br />
-    <h2>Edit</h2>
+<body>
+    <div class="body-content bg-light">
+        <br />
+        <h2>Edit</h2>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
             <h4>BusinessTemplate</h4>
@@ -21,6 +22,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.TemplateId)
             @Html.HiddenFor(model => model.BusinessId)
+            @Html.HiddenFor(model => model.BusinessOwner)
 
             <div class="form-group">
                 @Html.LabelFor(model => model.JobName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -47,14 +49,28 @@
             </div>
 
             <div class="form-group">
+                @Html.LabelFor(model => model.JobDetails, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.JobDetails, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.JobDetails, "", new { @class = "error" })
+                </div>
+            </div>
+
+            <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
-    }
+        }
 
-    <div>
-        @Html.ActionLink("Back to Services", "Index")
+        <div>
+            @Html.ActionLink("Back to Services", "Index")
+        </div>
     </div>
-    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({ selector: 'textarea', width: 500 });
+    </script>
+</body>

@@ -200,11 +200,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\EventsHolder.cs" />
-    <Compile Include="Migrations\201906202013581_quickupdate.cs" />
-    <Compile Include="Migrations\201906202013581_quickupdate.Designer.cs">
-      <DependentUpon>201906202013581_quickupdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Logic\APIKeys.cs" />
     <Compile Include="Models\BusinessOwner.cs" />
@@ -343,6 +338,7 @@
     <Content Include="Views\BusinessOwners\Edit.cshtml" />
     <Content Include="Views\BusinessOwners\AssignToSchedule.cshtml" />
     <Content Include="Views\BusinessOwners\ScheduleeDetails.cshtml" />
+    <Content Include="Views\BusinessTemplates\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,11 +352,6 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906202013581_quickupdate.resx">
-      <DependentUpon>201906202013581_quickupdate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

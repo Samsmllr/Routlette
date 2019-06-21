@@ -33,6 +33,8 @@ namespace RouteScheduler.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             BusinessTemplate businessTemplate = await db.BusinessTemplates.FindAsync(id);
+            string DetailsAre = businessTemplate.JobDetails;
+            ViewBag.Details = DetailsAre;
             if (businessTemplate == null)
             {
                 return HttpNotFound();
@@ -44,7 +46,6 @@ namespace RouteScheduler.Controllers
         public ActionResult Create()
         {
             BusinessTemplate businessTemplate = new BusinessTemplate();
-            ViewBag.BusinessId = new SelectList(db.BusinessOwners, "BusinessId", "FirstName");
             return View(businessTemplate);
         }
 
@@ -53,14 +54,15 @@ namespace RouteScheduler.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "JobName,Price,ServiceLength")] BusinessTemplate businessTemplate)
+        public async Task<ActionResult> Create([Bind(Include = "JobDetails,JobName,Price,ServiceLength")] BusinessTemplate businessTemplate)
         {
             try
             {
                 var userId = User.Identity.GetUserId();
-                var businessId = db.BusinessOwners.Where(b => b.ApplicationId == userId).FirstOrDefault().BusinessId;
+                BusinessOwner businessOwner = db.BusinessOwners.Where(b => b.ApplicationId == userId).FirstOrDefault();
 
-                businessTemplate.BusinessId = businessId;
+                businessTemplate.BusinessId = businessOwner.BusinessId;
+                businessTemplate.BusinessOwner = businessOwner;
 
                 if (ModelState.IsValid)
                 {
@@ -96,7 +98,7 @@ namespace RouteScheduler.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "TemplateId,BusinessId,JobName,Price,ServiceLength")] BusinessTemplate businessTemplate)
+        public async Task<ActionResult> Edit([Bind(Include = "BusinessOwner,JobDetails,TemplateId,BusinessId,JobName,Price,ServiceLength")] BusinessTemplate businessTemplate)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +106,6 @@ namespace RouteScheduler.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.BusinessId = new SelectList(db.BusinessOwners, "BusinessId", "FirstName", businessTemplate.BusinessId);
             return View(businessTemplate);
         }
 
