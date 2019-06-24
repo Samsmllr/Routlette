@@ -1,0 +1,57 @@
+﻿@model IEnumerable<RouteScheduler.Models.BusinessTemplate>
+
+@{
+    ViewBag.Title = "ViewServices";
+}
+
+<h2>ViewServices</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessOwner.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceLength)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobDetails)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusinessOwner.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceLength)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobDetails)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TemplateId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TemplateId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TemplateId })
+        </td>
+    </tr>
+}
+
+</table>

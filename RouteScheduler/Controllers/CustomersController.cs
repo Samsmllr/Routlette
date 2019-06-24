@@ -31,15 +31,7 @@ namespace RouteScheduler.Controllers
             return View(customer);
         }
 
-        public ActionResult CreateServiceRequest()
-        {
-            var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
-            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName");
-            ServiceRequested service = new ServiceRequested();
-            service.Customer = currentUser;
-            return View(service);
-        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -114,6 +106,15 @@ namespace RouteScheduler.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult ViewServices()
+        {
+            var currentPerson = User.Identity.GetUserId();
+            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName");
+            ServiceRequested service = new ServiceRequested();
+            service.Customer = currentUser;
+            return View(service);
         }
 
         public ActionResult RequestService()
