@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace RouteScheduler.Models
 {
@@ -53,5 +54,13 @@ namespace RouteScheduler.Models
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
+        [Required]
+        [Display(Name = "Business Name")]
+        public string BusinessName { get; set; }
+
+        [Display(Name = "Business Description")]
+        [Required(ErrorMessage = "Description of business required.")]
+        [AllowHtml]
+        public string BusinessDetails { get; set; }
     }
 }

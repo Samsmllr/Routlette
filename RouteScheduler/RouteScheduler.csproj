@@ -334,12 +334,11 @@
     <Content Include="Views\BusinessOwners\Calendar.cshtml" />
     <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
     <Content Include="Views\BusinessOwners\ViewServiceRequests.cshtml" />
-    <Content Include="Views\Customers\CreateServiceRequest.cshtml" />
     <Content Include="Views\BusinessOwners\Edit.cshtml" />
     <Content Include="Views\BusinessOwners\AssignToSchedule.cshtml" />
     <Content Include="Views\BusinessOwners\ScheduleeDetails.cshtml" />
     <Content Include="Views\BusinessTemplates\Details.cshtml" />
-    <Content Include="Views\Customers\ViewServices.cshtml" />
+    <Content Include="Views\Customers\ViewBusinessOwners.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

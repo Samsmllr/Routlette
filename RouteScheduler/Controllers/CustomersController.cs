@@ -31,30 +31,6 @@ namespace RouteScheduler.Controllers
             return View(customer);
         }
 
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateServiceRequest([Bind(Include = "RequestId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree")] ServiceRequested serviceRequested)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ServiceRequests.Add(serviceRequested);
-                await db.SaveChangesAsync();
-                return RedirectToAction("ViewRequestedServices");
-            }
-
-            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
-            return View(serviceRequested);
-        }
-
-        public async Task<ActionResult> ViewRequestedServices()
-        {
-            var serviceRequests = db.ServiceRequests.Include(s => s.BusinessTemplate).Include(s => s.Customer);
-            return View(await serviceRequests.ToListAsync());
-        }
-
-
         // POST: Customer/Create
         [HttpPost]
         public ActionResult Create([Bind(Include = "CustomerId,FirstName,LastName,Address,City,State,ZipCode")] Customer customer)
@@ -107,53 +83,89 @@ namespace RouteScheduler.Controllers
                 return View();
             }
         }
-        public ActionResult ViewServices()
+
+
+        public ActionResult ViewBusinessOwners()
         {
-            var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
-            ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName");
-            ServiceRequested service = new ServiceRequested();
-            service.Customer = currentUser;
-            return View(service);
+            List<BusinessOwner> businessOwnerList = db.BusinessOwners.ToList();
+            return View(businessOwnerList);
         }
 
-        public ActionResult RequestService()
-        {
-            var ServicesAre = db.BusinessTemplates.ToList();
-            return View(ServicesAre);
-        }
-
-        public ActionResult RequestServiceInformation(int id)
-        {
-            var CurrentService = db.BusinessTemplates.Where(b => b.BusinessId == id).FirstOrDefault();
-            return View(CurrentService);
-        }
-
-        [HttpPost]
-        public ActionResult RequestServiceInformation()
-        {
-            ServiceRequested serviceRequested = new ServiceRequested();
-            var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
-
-           // serviceRequested.TemplateId;
-            serviceRequested.CustomerId = currentUser.CustomerId;
 
 
 
-            db.ServiceRequests.Add(serviceRequested);
-            db.SaveChanges();
-            return View();
-        }
 
-        public ActionResult CompletedServices()
-        {
-            return View();
-        }
 
-        public ActionResult MyRequests()
-        {
-            return View();
-        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> CreateServiceRequest([Bind(Include = "RequestId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree")] ServiceRequested serviceRequested)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.ServiceRequests.Add(serviceRequested);
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("ViewRequestedServices");
+        //    }
+
+        //    ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
+        //    return View(serviceRequested);
+        //}
+
+        //public async Task<ActionResult> ViewRequestedServices()
+        //{
+        //    var serviceRequests = db.ServiceRequests.Include(s => s.BusinessTemplate).Include(s => s.Customer);
+        //    return View(await serviceRequests.ToListAsync());
+        //}
+
+
+        //public ActionResult ViewServices()
+        //{
+        //    var currentPerson = User.Identity.GetUserId();
+        //    var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+        //    ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName");
+        //    ServiceRequested service = new ServiceRequested();
+        //    service.Customer = currentUser;
+        //    return View(service);
+        //}
+
+        //public ActionResult RequestService()
+        //{
+        //    var ServicesAre = db.BusinessTemplates.ToList();
+        //    return View(ServicesAre);
+        //}
+
+        //public ActionResult RequestServiceInformation(int id)
+        //{
+        //    var CurrentService = db.BusinessTemplates.Where(b => b.BusinessId == id).FirstOrDefault();
+        //    return View(CurrentService);
+        //}
+
+        //[HttpPost]
+        //public ActionResult RequestServiceInformation()
+        //{
+        //    ServiceRequested serviceRequested = new ServiceRequested();
+        //    var currentPerson = User.Identity.GetUserId();
+        //    var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+
+        //   // serviceRequested.TemplateId;
+        //    serviceRequested.CustomerId = currentUser.CustomerId;
+
+
+
+        //    db.ServiceRequests.Add(serviceRequested);
+        //    db.SaveChanges();
+        //    return View();
+        //}
+
+        //public ActionResult CompletedServices()
+        //{
+        //    return View();
+        //}
+
+        //public ActionResult MyRequests()
+        //{
+        //    return View();
+        //}
     }
 }
