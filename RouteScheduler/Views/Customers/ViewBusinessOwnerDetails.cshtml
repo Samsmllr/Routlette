@@ -1,0 +1,48 @@
+﻿@model IEnumerable<RouteScheduler.Models.BusinessTemplate>
+
+@{
+    ViewBag.Title = "ViewBusinessOwnerDetails";
+}
+
+<h2>ViewBusinessOwnerDetails</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceLength)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceLength)
+        </td>
+        <td>
+            @Html.ActionLink("Select", "---", new { id=item.TemplateId })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobDetails)
+        </td>
+    </tr>
+}
+
+</table>

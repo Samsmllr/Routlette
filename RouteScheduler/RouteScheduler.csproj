@@ -339,6 +339,7 @@
     <Content Include="Views\BusinessOwners\ScheduleeDetails.cshtml" />
     <Content Include="Views\BusinessTemplates\Details.cshtml" />
     <Content Include="Views\Customers\ViewBusinessOwners.cshtml" />
+    <Content Include="Views\Customers\ViewBusinessOwnerDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

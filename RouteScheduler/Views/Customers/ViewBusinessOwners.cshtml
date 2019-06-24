@@ -16,13 +16,10 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BusinessName )
+                @Html.DisplayNameFor(model => model.BusinessName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.State)
+                Location
             </th>
             <th></th>
         </tr>
@@ -34,15 +31,16 @@
                     @Html.DisplayFor(modelItem => item.BusinessName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.City)
+                    @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.State)
+                    @Html.ActionLink("Select", "ViewBusinessOwnerDetails", new { id = item.BusinessId })
                 </td>
+            </tr>
+            <tr>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.BusinessId }) |
-                    @Html.ActionLink("Select", "--", new { id = item.BusinessId })
-                </td>
+                    @Html.DisplayFor(modelItem => item.BusinessDetails)
+                    </td>
             </tr>
         }
 

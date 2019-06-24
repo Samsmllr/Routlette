@@ -93,6 +93,14 @@ namespace RouteScheduler.Controllers
 
 
 
+    public ActionResult ViewBusinessOwnerDetails(int? id)
+        {
+
+            ViewBag.BusinessOwner = db.BusinessOwners.Where(b => b.BusinessId == id).FirstAsync();
+            List<BusinessTemplate> businessTemplate = db.BusinessTemplates.Where(t => t.BusinessId == id).Include(b => b.BusinessOwner).ToList();
+
+            return View(businessTemplate);
+        }
 
 
 
