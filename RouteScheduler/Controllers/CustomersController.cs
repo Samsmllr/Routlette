@@ -106,6 +106,7 @@ namespace RouteScheduler.Controllers
         {
             ServiceRequested serviceRequest = new ServiceRequested();
             BusinessTemplate template = db.BusinessTemplates.Where(b => b.TemplateId == id).FirstOrDefault();
+            ViewData["businessOwner"] = template.BusinessId;
             var currentPerson = User.Identity.GetUserId();
             var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
 
