@@ -109,7 +109,6 @@ namespace RouteScheduler.Controllers
             ViewData["businessOwner"] = template.BusinessId;
             var currentPerson = User.Identity.GetUserId();
             var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
-
             serviceRequest.BusinessTemplate = template;
             serviceRequest.Customer = currentUser;
             serviceRequest.CustomerId = currentUser.CustomerId;
@@ -117,7 +116,27 @@ namespace RouteScheduler.Controllers
             return View(serviceRequest);
         }
 
+        [HttpPost]
+        public ActionResult ScheduleEvent([Bind(Include = "CustomerId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree")] ServiceRequested service)
+        {
+            service.BusinessTemplate = db.BusinessTemplates.Where(b => b.TemplateId == service.TemplateId).FirstOrDefault();
+            service.Customer = db.Customers.Where(c => c.CustomerId == service.CustomerId).FirstOrDefault();
+            try
+            {
+                
+                if (ModelState.IsValid)
+                {
+                    db.ServiceRequests.Add(service);
+                    db.SaveChanges();
 
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(service);
+            }
+        }
 
 
         //[HttpPost]
