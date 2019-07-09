@@ -96,10 +96,24 @@ namespace RouteScheduler.Controllers
     public ActionResult ViewBusinessOwnerDetails(int? id)
         {
 
-            ViewBag.BusinessOwner = db.BusinessOwners.Where(b => b.BusinessId == id).FirstAsync();
+            ViewBag.BusinessOwner = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
             List<BusinessTemplate> businessTemplate = db.BusinessTemplates.Where(t => t.BusinessId == id).Include(b => b.BusinessOwner).ToList();
 
             return View(businessTemplate);
+        }
+
+        public ActionResult ScheduleEvent(int? id)
+        {
+            ServiceRequested serviceRequest = new ServiceRequested();
+            BusinessTemplate template = db.BusinessTemplates.Where(b => b.TemplateId == id).FirstOrDefault();
+            var currentPerson = User.Identity.GetUserId();
+            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+
+            serviceRequest.BusinessTemplate = template;
+            serviceRequest.Customer = currentUser;
+            serviceRequest.CustomerId = currentUser.CustomerId;
+            serviceRequest.TemplateId = template.TemplateId;
+            return View(serviceRequest);
         }
 
 
@@ -165,6 +179,9 @@ namespace RouteScheduler.Controllers
         //    db.SaveChanges();
         //    return View();
         //}
+
+
+
 
         //public ActionResult CompletedServices()
         //{

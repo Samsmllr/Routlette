@@ -178,7 +178,7 @@ namespace RouteScheduler.Controllers
 
         // POST: BusinessOwner/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode, DayStart, DayEnd")] BusinessOwner businessOwner)
+        public ActionResult Create([Bind(Include = "BusinessId,FirstName, LastName, Address, City, State, Zipcode, DayStart, DayEnd, BusinessName, BusinessDetails")] BusinessOwner businessOwner)
         {
             var Geocode = gl.GeocodeAddress(businessOwner.Address, businessOwner.City, businessOwner.State);
             
