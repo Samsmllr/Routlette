@@ -29,7 +29,6 @@ namespace RouteScheduler.Models
         public DbSet<BusinessTemplate> BusinessTemplates { get; set; }
         public DbSet<ServiceRequested> ServiceRequests { get; set; }
         public DbSet<ServiceCompleted> ServicesComplete { get; set; }
-        public DbSet<DaySlot> DaySlots { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

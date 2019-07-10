@@ -32,9 +32,5 @@ namespace RouteScheduler.Models
         [Display (Name = "Preferred Day")]
         [DataType(DataType.Date)]
         public DateTime PreferredDayThree { get; set; }
-
-        [ForeignKey("DaySlot")]
-        public int Id { get; set; }
-        public DaySlot DaySlot { get; set; }
     }
 }

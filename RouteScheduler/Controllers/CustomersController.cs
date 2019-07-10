@@ -102,48 +102,47 @@ namespace RouteScheduler.Controllers
             return View(businessTemplate);
         }
 
-        //public ActionResult ScheduleEvent(int? id)
-        //{
-        //    ServiceRequested serviceRequest = new ServiceRequested();
-        //    BusinessTemplate template = db.BusinessTemplates.Where(b => b.TemplateId == id).FirstOrDefault();
-        //    ViewData["businessOwner"] = template.BusinessId;
-
-        //    ViewBag.DayId = new SelectList(db.DaySlots, "id", "PartOfDay");
-
-        //    var currentPerson = User.Identity.GetUserId();
-        //    var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
-        //    serviceRequest.BusinessTemplate = template;
-        //    serviceRequest.Customer = currentUser;
-        //    serviceRequest.CustomerId = currentUser.CustomerId;
-        //    serviceRequest.TemplateId = template.TemplateId;
-        //    return View(serviceRequest);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public Task<ActionResult> ScheduleEvent([Bind(Include = "RequestId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree,PreferredTime")] ServiceRequested serviceRequested)
-        //{
-        //    ViewBag.DayId = new SelectList(db.DaySlots, "id", "PartOfDay");
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            db.ServiceRequests.Add(serviceRequested);
-        //            db.SaveChangesAsync();
-        //            return RedirectToAction("Index");
-        //        }
-
-        //        return View(serviceRequested);
-        //    }
-        //    catch
-        //    {
-            
-        //    return View(serviceRequested);
-        //    }
-
-        //}
+        public ActionResult ScheduleEvent(int? id)
+        {
+            ServiceRequested serviceRequest = new ServiceRequested();
+            BusinessTemplate template = db.BusinessTemplates.Where(b => b.TemplateId == id).FirstOrDefault();
+            ViewData["businessOwner"] = template.BusinessId;
 
         
+            var currentPerson = User.Identity.GetUserId();
+            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+            serviceRequest.BusinessTemplate = template;
+            serviceRequest.Customer = currentUser;
+            serviceRequest.CustomerId = currentUser.CustomerId;
+            serviceRequest.TemplateId = template.TemplateId;
+            return View(serviceRequest);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ScheduleEvent([Bind(Include = "RequestId,TemplateId,CustomerId,PreferredDayOne,PreferredDayTwo,PreferredDayThree")] ServiceRequested serviceRequested)
+        {
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.ServiceRequests.Add(serviceRequested);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+
+                return View(serviceRequested);
+            }
+            catch
+            {
+
+                return View(serviceRequested);
+            }
+
+        }
+
+
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]

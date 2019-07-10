@@ -195,7 +195,6 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ServiceRequestedsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -206,7 +205,6 @@
     <Compile Include="Models\BusinessTemplate.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Logic\APILogic.cs" />
-    <Compile Include="Models\DaySlot.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Logic\SchedulingLogic.cs" />
@@ -314,14 +312,9 @@
     <Content Include="Views\BusinessTemplates\Delete.cshtml" />
     <Content Include="Views\BusinessTemplates\Edit.cshtml" />
     <Content Include="Views\BusinessTemplates\Index.cshtml" />
-    <Content Include="Views\ServiceRequesteds\Delete.cshtml" />
-    <Content Include="Views\ServiceRequesteds\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutBusinessOwner.cshtml" />
     <Content Include="Views\BusinessOwners\TodaysRoute.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
-    <Content Include="Views\ServiceRequesteds\Create.cshtml" />
-    <Content Include="Views\ServiceRequesteds\Edit.cshtml" />
-    <Content Include="Views\ServiceRequesteds\Details.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
