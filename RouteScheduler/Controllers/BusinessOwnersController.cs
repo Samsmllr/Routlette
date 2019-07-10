@@ -97,16 +97,21 @@ namespace RouteScheduler.Controllers
         {
             ServiceRequested service = db.ServiceRequests.Where(s => s.RequestId == id).FirstOrDefault();
             EventsHolder events = new EventsHolder();
-           
 
-            events.CustomerId = service.Customer.CustomerId;
-            events.UserId = service.BusinessTemplate.BusinessId;
-            events.EventName = service.Customer.LastName + " " + service.BusinessTemplate.JobName;
-            events.Latitude = service.Customer.Latitude;
-            events.Longitude = service.Customer.Longitude;
-            var DateListIs = sl.AvailableTimes(service.BusinessTemplate.BusinessId, service);
+            var UserIs = User.Identity.GetUserId();
+            BusinessOwner UserIdIs = db.BusinessOwners.Where(b => b.ApplicationId == UserIs).FirstOrDefault();
+
+            Customer customer = db.Customers.Where(c => c.CustomerId == service.CustomerId).FirstOrDefault();
+            BusinessTemplate businessTemplate = db.BusinessTemplates.Where(b => b.TemplateId == service.TemplateId).FirstOrDefault();
+
+            events.CustomerId = service.CustomerId;
+            events.UserId = UserIdIs.BusinessId;
+            events.EventName = customer.LastName + " " + businessTemplate.JobName;
+            events.Latitude = customer.Latitude;
+            events.Longitude = customer.Longitude;
+            var DateListIs = sl.AvailableTimes(businessTemplate.BusinessId, service);
             ViewBag.DateList = new SelectList(DateListIs);
-            ViewData["CustomerInformation"] = service.Customer;
+            ViewData["CustomerInformation"] = customer;
             return View(events);
         }
 

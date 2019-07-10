@@ -36,7 +36,7 @@ namespace RouteScheduler.Models
                     do
                     {
                         DateListModified.Add(time);
-                        time.AddMinutes(15);
+                        time = time.AddMinutes(15);
                     }
                     while (time + service.BusinessTemplate.ServiceLength <= dateListInitial[i].Date + businessOwner.DayEnd);
                 }
@@ -49,7 +49,7 @@ namespace RouteScheduler.Models
                             if (eventIs.StartDate >= time + service.BusinessTemplate.ServiceLength)
                             {
                                 DateListModified.Add(time);
-                                time.AddMinutes(15);
+                                time = time.AddMinutes(15);
                             }
                             else if (eventIs.StartDate < time + service.BusinessTemplate.ServiceLength)
                             {

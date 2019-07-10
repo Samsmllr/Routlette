@@ -122,7 +122,8 @@ namespace RouteScheduler.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ScheduleEvent([Bind(Include = "RequestId,TemplateId,CustomerId,PreferredDayOne,PreferredDayTwo,PreferredDayThree")] ServiceRequested serviceRequested)
         {
-
+            serviceRequested.Customer = db.Customers.Where(c => c.CustomerId == serviceRequested.CustomerId).FirstOrDefault();
+            serviceRequested.BusinessTemplate = db.BusinessTemplates.Where(b => b.TemplateId == serviceRequested.TemplateId).FirstOrDefault();
             try
             {
                 if (ModelState.IsValid)
