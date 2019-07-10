@@ -102,42 +102,48 @@ namespace RouteScheduler.Controllers
             return View(businessTemplate);
         }
 
-        public ActionResult ScheduleEvent(int? id)
-        {
-            ServiceRequested serviceRequest = new ServiceRequested();
-            BusinessTemplate template = db.BusinessTemplates.Where(b => b.TemplateId == id).FirstOrDefault();
-            ViewData["businessOwner"] = template.BusinessId;
-            var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
-            serviceRequest.BusinessTemplate = template;
-            serviceRequest.Customer = currentUser;
-            serviceRequest.CustomerId = currentUser.CustomerId;
-            serviceRequest.TemplateId = template.TemplateId;
-            return View(serviceRequest);
-        }
+        //public ActionResult ScheduleEvent(int? id)
+        //{
+        //    ServiceRequested serviceRequest = new ServiceRequested();
+        //    BusinessTemplate template = db.BusinessTemplates.Where(b => b.TemplateId == id).FirstOrDefault();
+        //    ViewData["businessOwner"] = template.BusinessId;
 
-        [HttpPost]
-        public ActionResult ScheduleEvent([Bind(Include = "CustomerId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree")] ServiceRequested service)
-        {
-            service.BusinessTemplate = db.BusinessTemplates.Where(b => b.TemplateId == service.TemplateId).FirstOrDefault();
-            service.Customer = db.Customers.Where(c => c.CustomerId == service.CustomerId).FirstOrDefault();
-            try
-            {
-                
-                if (ModelState.IsValid)
-                {
-                    db.ServiceRequests.Add(service);
-                    db.SaveChanges();
+        //    ViewBag.DayId = new SelectList(db.DaySlots, "id", "PartOfDay");
 
-                }
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(service);
-            }
-        }
+        //    var currentPerson = User.Identity.GetUserId();
+        //    var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+        //    serviceRequest.BusinessTemplate = template;
+        //    serviceRequest.Customer = currentUser;
+        //    serviceRequest.CustomerId = currentUser.CustomerId;
+        //    serviceRequest.TemplateId = template.TemplateId;
+        //    return View(serviceRequest);
+        //}
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public Task<ActionResult> ScheduleEvent([Bind(Include = "RequestId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree,PreferredTime")] ServiceRequested serviceRequested)
+        //{
+        //    ViewBag.DayId = new SelectList(db.DaySlots, "id", "PartOfDay");
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            db.ServiceRequests.Add(serviceRequested);
+        //            db.SaveChangesAsync();
+        //            return RedirectToAction("Index");
+        //        }
+
+        //        return View(serviceRequested);
+        //    }
+        //    catch
+        //    {
+            
+        //    return View(serviceRequested);
+        //    }
+
+        //}
+
+        
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]
@@ -200,17 +206,5 @@ namespace RouteScheduler.Controllers
         //    return View();
         //}
 
-
-
-
-        //public ActionResult CompletedServices()
-        //{
-        //    return View();
-        //}
-
-        //public ActionResult MyRequests()
-        //{
-        //    return View();
-        //}
     }
 }

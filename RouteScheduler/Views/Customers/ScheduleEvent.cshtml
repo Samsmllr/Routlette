@@ -3,81 +3,78 @@
 @{
     ViewBag.Title = "ScheduleEvent";
 }
+<div class="body-content bg-light">
+    <h2>ScheduleEvent</h2>
 
-<h2>ScheduleEvent</h2>
+    <dd>
+        @Html.DisplayFor(model => model.BusinessTemplate.JobName)
+    </dd>
+    <dd>
+        @Html.DisplayFor(model => model.BusinessTemplate.Price)
+    </dd>
+    <dd>
+        @Html.DisplayFor(model => model.BusinessTemplate.ServiceLength)
+    </dd>
+    <dd>
+        @Html.DisplayFor(model => model.BusinessTemplate.JobDetails)
+    </dd>
 
-<dd>
-    @Html.DisplayFor(model => model.BusinessTemplate.JobName)
-</dd>
-<dd>
-    @Html.DisplayFor(model => model.BusinessTemplate.Price)
-</dd>
-<dd>
-    @Html.DisplayFor(model => model.BusinessTemplate.ServiceLength)
-</dd>
-<dd>
-    @Html.DisplayFor(model => model.BusinessTemplate.JobDetails)
-</dd>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>ServiceRequested</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.BusinessTemplate)
-    @Html.HiddenFor(model => model.Customer)
-    @Html.HiddenFor(model => model.CustomerId)
-    @Html.HiddenFor(model => model.TemplateId)
+        <div class="form-horizontal">
+            <h4>ServiceRequested</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.BusinessTemplate)
+                @Html.HiddenFor(model => model.Customer)
+                @Html.HiddenFor(model => model.CustomerId)
+                @Html.HiddenFor(model => model.TemplateId)
 
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.PreferredDayOne, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PreferredDayOne, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PreferredDayOne, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.PreferredDayOne, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PreferredDayOne, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PreferredDayOne, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PreferredDayTwo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PreferredDayTwo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PreferredDayTwo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PreferredDayThree, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PreferredDayThree, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PreferredDayThree, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Id, "DayId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DayId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DaySlot, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
         </div>
+    }
+
+    <div>
+        @Html.ActionLink("Choose a different Service", "ViewBusinessOwnerDetails", new { id = ViewData["businessOwner"] })
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PreferredDayTwo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PreferredDayTwo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PreferredDayTwo, "", new { @class = "text-danger" })
-        </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PreferredDayThree, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PreferredDayThree, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PreferredDayThree, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Id, "Id", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("Id", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
-
-<div>
-    @Html.ActionLink("Choose a different Service", "ViewBusinessOwnerDetails", new { id = ViewData["businessOwner"] })
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
