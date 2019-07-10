@@ -4,41 +4,62 @@
 
 @model RouteScheduler.Logic.EventsHolder
 
-
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Register";
 }
-<div class="body-content bg-light">
-    <br />
-    <h2>Details</h2>
+<body>
+    <div class="body-content bg-light">
+        <br />
+        <h2>Register</h2>
 
-    <div>
-        <h4>Your details</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dd>
-                @Html.DisplayFor(model => model.EventName)
-            </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.EventName)
-            </dt>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        </dl>
-        <div class="form-group">
-            <label for="exampleSelect1">Example select</label>
-            <select class="form-control" id="exampleSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+        <div class="form-horizontal">
+            <h4>Additional Details</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.CustomerId)
+            @Html.HiddenFor(model => model.EventName)
+            @Html.HiddenFor(model => model.Latitude)
+            @Html.HiddenFor(model => model.Longitude)
+            @Html.HiddenFor(model => model.UserId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "error" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DateList", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "error" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-outline-primary" />
+                </div>
+            </div>
         </div>
-
+        }
     </div>
-    <p>
-        @Html.ActionLink("Home", "Index")
-    </p>
-</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({ selector: 'textarea', width: 500 });
+    </script>
+</body>

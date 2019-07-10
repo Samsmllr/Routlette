@@ -26,6 +26,7 @@ namespace RouteScheduler.Controllers
         private SchedulingLogic sl = new SchedulingLogic();
         private WebClient webClient = new WebClient();
         private HttpClient client = new HttpClient();
+        private List<DateTime> DateListIs;
 
         // GET: BusinessOwner
         public ActionResult Index()
@@ -109,15 +110,14 @@ namespace RouteScheduler.Controllers
             events.EventName = customer.LastName + " " + businessTemplate.JobName;
             events.Latitude = customer.Latitude;
             events.Longitude = customer.Longitude;
-            var DateListIs = sl.AvailableTimes(businessTemplate.BusinessId, service);
+            DateListIs = sl.AvailableTimes(businessTemplate.BusinessId, service);
             ViewBag.DateList = new SelectList(DateListIs);
-            ViewData["CustomerInformation"] = customer;
             return View(events);
         }
 
 
         [HttpPost]
-        public async Task<ActionResult> AssignToScheduleAsync([Bind(Include = "CustomerId,UserId,EventName,Latitude,Longitude,StartDate,EndDate")] EventsHolder events)
+        public async Task<ActionResult> AssignToSchedule([Bind(Include = "CustomerId,UserId,EventName,Latitude,Longitude,StartDate,EndDate")] EventsHolder events)
         {
 
             try
@@ -145,6 +145,7 @@ namespace RouteScheduler.Controllers
             }
             catch
             {
+                ViewBag.DateList = new SelectList(DateListIs);
                 return View(events);
             }
         }
