@@ -106,6 +106,7 @@ namespace RouteScheduler.Controllers
             BusinessTemplate businessTemplate = db.BusinessTemplates.Where(b => b.TemplateId == service.TemplateId).FirstOrDefault();
 
             events.CustomerId = service.CustomerId;
+            events.TemplateId = businessTemplate.TemplateId;
             events.UserId = UserIdIs.BusinessId;
             events.EventName = customer.LastName + " " + businessTemplate.JobName;
             events.Latitude = customer.Latitude;
@@ -117,8 +118,10 @@ namespace RouteScheduler.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> AssignToSchedule([Bind(Include = "CustomerId,UserId,EventName,Latitude,Longitude,StartDate,EndDate")] EventsHolder events)
+        public async Task<ActionResult> AssignToSchedule([Bind(Include = "TemplateId,CustomerId,UserId,EventName,Latitude,Longitude,StartDate")] EventsHolder events)
         {
+            BusinessTemplate template = db.BusinessTemplates.Where(b => b.TemplateId == events.TemplateId).FirstOrDefault();
+            events.EndDate = events.StartDate + template.ServiceLength;
 
             try
             {
