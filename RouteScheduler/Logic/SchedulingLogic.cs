@@ -41,6 +41,8 @@ namespace RouteScheduler.Models
                     }
                     while (time + service.BusinessTemplate.ServiceLength <= dateListInitial[i].Date + businessOwner.DayEnd);
                 }
+
+
                 else
                 {
                     foreach(var eventIs in EventsList)
@@ -54,7 +56,7 @@ namespace RouteScheduler.Models
                             }
                             else if (eventIs.StartDate < time + service.BusinessTemplate.ServiceLength)
                             {
-                                time.Add(service.BusinessTemplate.ServiceLength);
+                                time = time.Add(service.BusinessTemplate.ServiceLength);
                             }
                         } while (time < eventIs.StartDate);
                     }

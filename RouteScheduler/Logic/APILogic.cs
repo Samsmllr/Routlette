@@ -65,8 +65,9 @@ namespace RouteScheduler.Models
             EventsHolder events;
             foreach(var item in obj)
             {
+                DateTime startDate = item.StartDate;
                 events = new EventsHolder();
-                if (item.UserId == id && item.StartDate.Date == day.Date)
+                if (item.UserId == id && startDate.Day == day.Day)
                 {
                     int CustomerIdIs = item.CustomerId;
                     events.UserId = item.UserId;
