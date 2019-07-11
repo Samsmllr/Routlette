@@ -30,6 +30,7 @@ namespace RouteScheduler.Models
             {
                 EventsList = gl.GetEventsByIdAndDay(id, dateListInitial[i]);
                 DateTime time = dateListInitial[i].Date + businessOwner.DayStart;
+                Date date = new Date();
 
                 if (EventsList.Count <= 0)
                 {

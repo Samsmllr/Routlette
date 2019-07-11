@@ -98,7 +98,9 @@ namespace RouteScheduler.Controllers
 
             ViewBag.BusinessOwner = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
             List<BusinessTemplate> businessTemplate = db.BusinessTemplates.Where(t => t.BusinessId == id).Include(b => b.BusinessOwner).ToList();
-
+            BusinessOwner businessOwner = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
+            string DetailsAre = businessOwner.BusinessDetails;
+            ViewBag.Details = DetailsAre;
             return View(businessTemplate);
         }
 
@@ -107,6 +109,7 @@ namespace RouteScheduler.Controllers
             ServiceRequested serviceRequest = new ServiceRequested();
             BusinessTemplate template = db.BusinessTemplates.Where(b => b.TemplateId == id).FirstOrDefault();
             ViewData["businessOwner"] = template.BusinessId;
+            ViewBag.Details = template.JobDetails;
 
         
             var currentPerson = User.Identity.GetUserId();
@@ -142,69 +145,6 @@ namespace RouteScheduler.Controllers
             }
 
         }
-
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> CreateServiceRequest([Bind(Include = "RequestId,TemplateId,PreferredDayOne,PreferredDayTwo,PreferredDayThree")] ServiceRequested serviceRequested)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.ServiceRequests.Add(serviceRequested);
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("ViewRequestedServices");
-        //    }
-
-        //    ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName", serviceRequested.TemplateId);
-        //    return View(serviceRequested);
-        //}
-
-        //public async Task<ActionResult> ViewRequestedServices()
-        //{
-        //    var serviceRequests = db.ServiceRequests.Include(s => s.BusinessTemplate).Include(s => s.Customer);
-        //    return View(await serviceRequests.ToListAsync());
-        //}
-
-
-        //public ActionResult ViewServices()
-        //{
-        //    var currentPerson = User.Identity.GetUserId();
-        //    var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
-        //    ViewBag.TemplateId = new SelectList(db.BusinessTemplates, "TemplateId", "JobName");
-        //    ServiceRequested service = new ServiceRequested();
-        //    service.Customer = currentUser;
-        //    return View(service);
-        //}
-
-        //public ActionResult RequestService()
-        //{
-        //    var ServicesAre = db.BusinessTemplates.ToList();
-        //    return View(ServicesAre);
-        //}
-
-        //public ActionResult RequestServiceInformation(int id)
-        //{
-        //    var CurrentService = db.BusinessTemplates.Where(b => b.BusinessId == id).FirstOrDefault();
-        //    return View(CurrentService);
-        //}
-
-        //[HttpPost]
-        //public ActionResult RequestServiceInformation()
-        //{
-        //    ServiceRequested serviceRequested = new ServiceRequested();
-        //    var currentPerson = User.Identity.GetUserId();
-        //    var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
-
-        //   // serviceRequested.TemplateId;
-        //    serviceRequested.CustomerId = currentUser.CustomerId;
-
-
-
-        //    db.ServiceRequests.Add(serviceRequested);
-        //    db.SaveChanges();
-        //    return View();
-        //}
 
     }
 }

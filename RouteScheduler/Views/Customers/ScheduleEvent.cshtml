@@ -1,36 +1,34 @@
-﻿@model RouteScheduler.Models.ServiceRequested
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+@model RouteScheduler.Models.ServiceRequested
 
 @{
-    ViewBag.Title = "ScheduleEvent";
+    ViewBag.Title = "Schedule Event";
 }
 <div class="body-content bg-light">
-    <h2>ScheduleEvent</h2>
+    <br />
+    <h2>
+        Schedule @Html.DisplayFor(model => model.BusinessTemplate.JobName)
+    </h2>
+        <h5>Price: $@Html.DisplayFor(model => model.BusinessTemplate.Price).00 || Length: @Html.DisplayFor(model => model.BusinessTemplate.ServiceLength)</h5>
 
-    <dd>
-        @Html.DisplayFor(model => model.BusinessTemplate.JobName)
-    </dd>
-    <dd>
-        @Html.DisplayFor(model => model.BusinessTemplate.Price)
-    </dd>
-    <dd>
-        @Html.DisplayFor(model => model.BusinessTemplate.ServiceLength)
-    </dd>
-    <dd>
-        @Html.DisplayFor(model => model.BusinessTemplate.JobDetails)
-    </dd>
+        @Html.Raw(ViewBag.Details)
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>ServiceRequested</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.BusinessTemplate)
-                @Html.HiddenFor(model => model.Customer)
-                @Html.HiddenFor(model => model.CustomerId)
-                @Html.HiddenFor(model => model.TemplateId)
+            @Html.HiddenFor(model => model.Customer)
+            @Html.HiddenFor(model => model.CustomerId)
+            @Html.HiddenFor(model => model.TemplateId)
 
 
 
@@ -69,4 +67,4 @@
     <div>
         @Html.ActionLink("Choose a different Service", "ViewBusinessOwnerDetails", new { id = ViewData["businessOwner"] })
     </div>
-    </div>
+</div>

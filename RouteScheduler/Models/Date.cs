@@ -7,9 +7,8 @@ namespace RouteScheduler.Models
 {
     public class Date
     {
-
         public int value { get; set; }
-        public DateTime Time { get; set; }
 
+        public DateTime Time { get; set; }
     }
 }

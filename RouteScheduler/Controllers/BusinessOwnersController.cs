@@ -26,7 +26,7 @@ namespace RouteScheduler.Controllers
         private SchedulingLogic sl = new SchedulingLogic();
         private WebClient webClient = new WebClient();
         private HttpClient client = new HttpClient();
-        private List<DateTime> DateListIs;
+        private List<DateTime> DateListIs { get; set; }
 
         // GET: BusinessOwner
         public ActionResult Index()
