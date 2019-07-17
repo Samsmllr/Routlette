@@ -53,20 +53,39 @@ namespace RouteScheduler.Controllers
         }
 
 
-        public ActionResult TodaysRoute()
+        //public ActionResult TodaysRoute()
+        //{
+        //    var currentPerson = User.Identity.GetUserId();
+        //    var Longitude = db.BusinessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Longitude;
+        //    var Latitude = db.BusinessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Latitude;
+        //    string DisplayIs = ($"https://www.google.com/maps/embed/v1/view?zoom=16&center={Latitude},{Longitude}&key=" + aPIKeys.ApiKey);
+        //    ViewData["DisplayIs"] = DisplayIs;
+        //    return View();
+        //}
+
+        //public ActionResult Calendar()
+        //{
+            
+        //    return View();
+        //}
+
+
+            public ActionResult ViewCustomerDetails(int? id)
         {
             var currentPerson = User.Identity.GetUserId();
-            var Longitude = db.BusinessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Longitude;
-            var Latitude = db.BusinessOwners.Where(c => c.ApplicationId == currentPerson).FirstOrDefault().Latitude;
-            string DisplayIs = ($"https://www.google.com/maps/embed/v1/view?zoom=16&center={Latitude},{Longitude}&key=" + aPIKeys.ApiKey);
-            ViewData["DisplayIs"] = DisplayIs;
-            return View();
-        }
-
-        public ActionResult Calendar()
-        {
-            
-            return View();
+            BusinessOwner UserIs = db.BusinessOwners.Where(b => b.ApplicationId == currentPerson).FirstOrDefault();
+            Customer customer = db.Customers.Where(c => c.CustomerId == id).FirstOrDefault();
+            List<EventsHolder> eventList = gl.GetEventsByIdAndDay(UserIs.BusinessId, DateTime.Now);
+            List<EventsHolder> CustomerEvents = new List<EventsHolder>();
+            for (int i = 0; i < eventList.Count; i++)
+            {
+                if(eventList[i].CustomerId == id)
+                {
+                    CustomerEvents.Add(eventList[i]);
+                }
+            }
+            ViewBag.Customer = customer;
+            return View(CustomerEvents);
         }
 
         public ActionResult ScheduleeDetails(int? id)
@@ -144,7 +163,8 @@ namespace RouteScheduler.Controllers
                         }
                     }
                 }
-                return RedirectToAction("Index");
+                
+                return RedirectToAction("ViewServiceRequests");
             }
             catch
             {
@@ -158,17 +178,11 @@ namespace RouteScheduler.Controllers
         public ActionResult ViewServiceRequests()
         {
             var currentPerson = User.Identity.GetUserId();
-            var serviceRequests = db.ServiceRequests.Where(e => e.BusinessTemplate.BusinessOwner.ApplicationId == currentPerson);
+            var serviceRequests = db.ServiceRequests.Where(e => e.BusinessTemplate.BusinessOwner.ApplicationId == currentPerson).ToList();
             return View(serviceRequests);
         }
 
 
-
-
-        public ActionResult DisplayRoute()
-        {
-            return View();
-        }
 
         // GET: BusinessOwner/Details/5
         public ActionResult Details()

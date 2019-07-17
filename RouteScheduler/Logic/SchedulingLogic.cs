@@ -60,6 +60,15 @@ namespace RouteScheduler.Models
                             }
                         } while (time < eventIs.StartDate);
                     }
+                    if (time + service.BusinessTemplate.ServiceLength <= dateListInitial[i].Date + businessOwner.DayEnd)
+                    {
+                        do
+                        {
+                            DateListModified.Add(time);
+                            time = time.AddMinutes(15);
+                        }
+                        while (time + service.BusinessTemplate.ServiceLength <= dateListInitial[i].Date + businessOwner.DayEnd);
+                    }
                 }
             
             }

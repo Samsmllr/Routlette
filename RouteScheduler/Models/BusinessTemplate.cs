@@ -16,7 +16,7 @@ namespace RouteScheduler.Models
 
         [ForeignKey("BusinessOwner")]
         public int BusinessId { get; set; }
-        public BusinessOwner BusinessOwner { get; set; }
+        public virtual BusinessOwner BusinessOwner { get; set; }
 
         [Required]
         [Display(Name = "Job Name")]
