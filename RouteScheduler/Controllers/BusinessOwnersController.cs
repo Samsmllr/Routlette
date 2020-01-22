@@ -85,6 +85,9 @@ namespace RouteScheduler.Controllers
                 }
             }
             ViewBag.Customer = customer;
+
+            string ApiIs = ($"https://maps.googleapis.com/maps/api/js?key=" + aPIKeys.ApiKey + "&callback=initMap");
+            ViewData["ApiKey"] = ApiIs;
             return View(CustomerEvents);
         }
 
@@ -228,18 +231,20 @@ namespace RouteScheduler.Controllers
 
 
         // GET: BusinessOwner/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit()
         {
-            if (id == null)
+            var currentPerson = User.Identity.GetUserId();
+            
+            if (currentPerson == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BusinessOwner businessOwner = await db.BusinessOwners.FindAsync(id);
-            if (businessOwner == null)
+            BusinessOwner UserIs = db.BusinessOwners.Where(b => b.ApplicationId == currentPerson).FirstOrDefault();
+            if (UserIs == null)
             {
                 return HttpNotFound();
             }
-            return View(businessOwner);
+            return View(UserIs);
         }
 
         // POST: BusinessOwner/Edit/5

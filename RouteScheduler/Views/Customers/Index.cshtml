@@ -2,12 +2,79 @@
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
 
-@{
-    ViewBag.Title = "Index";
-}
+    @model IEnumerable<RouteScheduler.Models.ServiceRequested>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        @*<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>*@
+        <title></title>
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
 
-<div class="body-content bg-light">
-    <br />
-    <h2>Welcome, customer</h2>
-    <br />
-</div>
+        <div class="body-content bg-light">
+            <br />
+            <h3>Welcome, @ViewData["NameIs"]!</h3>
+            <div class-="container">
+                <div class="row">
+                    <div class="col-7">
+                        <h4>Your event requests:</h4>
+
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    Events
+                                </th>
+                                <th></th>
+                            </tr>
+                            @if (Model == null)
+                            {
+                                <tr>
+                                    <td>You haven't scheduled anything yet!</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(ModelItem => item.BusinessTemplate.BusinessOwner.BusinessName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BusinessTemplate.JobName)
+                                    </td>
+                                    <td>
+                                        @Html.Raw(item.BusinessTemplate.JobDetails)
+                                    </td>
+                                </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-5">
+                        <br />
+                        <div id="map"></div>
+                        <script>
+                        function initMap() {
+                            var home = { lat: @ViewData["Lat"], lng: @ViewData["Lng"] };
+                            var map = new google.maps.Map(
+                                document.getElementById('map'), { zoom: 14, center: home });
+                            var marker = new google.maps.Marker({ position: home, map: map });
+                        }
+                        </script>
+                        <script async defer
+                                src=@ViewData["ApiKey"]>
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+    </body>
+</html>

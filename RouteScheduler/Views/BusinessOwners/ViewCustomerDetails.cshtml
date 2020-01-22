@@ -1,7 +1,79 @@
 ﻿
 @{
-    ViewBag.Title = "ViewCustomerDetails";
+    Layout = "~/Views/Shared/_LayoutBusinessOwner.cshtml";
 }
 
-<h2>ViewCustomerDetails</h2>
+@model IEnumerable<RouteScheduler.Logic.EventsHolder>
+<!DOCTYPE html>
+<html>
+<head>
+    @*<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>*@
+    <title></title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="body-content bg-light">
+        <br />
+        <h3>Viewing information for @ViewBag.Customer.FirstName @ViewBag.Customer.LastName</h3>
+        <div class-="container">
+            <div class="row">
+                <div class="col-7">
+
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Time
+                            </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(ModelItem => item.EventName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate.TimeOfDay)
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>
+                                @ViewBag.Customer.Address
+                                @ViewBag.Customer.City,
+                                @ViewBag.Customer.State,
+                                @ViewBag.Customer.ZipCode
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-5">
+                    <br />
+                    <div id="map"></div>
+                    <script>
+                        function initMap() {
+                            var home = { lat: @ViewBag.Customer.Latitude, lng: @ViewBag.Customer.Longitude };
+                            var map = new google.maps.Map(
+                                document.getElementById('map'), { zoom: 14, center: home });
+                            var marker = new google.maps.Marker({ position: home, map: map });
+                        }
+                    </script>
+                    <script async defer
+                            src=@ViewData["ApiKey"]>
+                    </script>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</body>
+</html>

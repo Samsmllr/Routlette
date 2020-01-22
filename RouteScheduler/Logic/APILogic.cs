@@ -69,12 +69,14 @@ namespace RouteScheduler.Models
                 events = new EventsHolder();
                 if (item.UserId == id && startDate.Day == day.Day)
                 {
-                    int CustomerIdIs = item.CustomerId;
+                    events.CustomerId = item.CustomerId;
                     events.UserId = item.UserId;
                     events.StartDate = item.StartDate;
                     events.EndDate = item.EndDate;
                     events.Latitude = item.Latitude;
                     events.Longitude = item.Longitude;
+                    events.TemplateId = item.TemplateId;
+                    events.EventName = item.EventName;
 
                     list.Add(events);
                 }

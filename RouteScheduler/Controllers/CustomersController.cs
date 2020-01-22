@@ -14,14 +14,35 @@ namespace RouteScheduler.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private APILogic gl = new APILogic();
+        private APIKeys aPIKeys = new APIKeys();
         
 
         // GET: Customer Details
         public ActionResult Index()
         {
-            var currentPerson = User.Identity.GetUserId();
-            var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
-            return View(currentUser);
+            //var currentPerson = User.Identity.GetUserId();
+            //var currentUser = db.Customers.Where(c => c.ApplicationId == currentPerson).FirstOrDefault();
+            //return View(currentUser);
+            var UserId = User.Identity.GetUserId();
+            Customer UserIs = db.Customers.Where(b => b.ApplicationId == UserId).FirstOrDefault();
+            double lat = db.Customers.Where(b => b.ApplicationId == UserId).FirstOrDefault().Latitude;
+            double lng = db.Customers.Where(b => b.ApplicationId == UserId).FirstOrDefault().Longitude;
+            string ApiIs = ($"https://maps.googleapis.com/maps/api/js?key=" + aPIKeys.ApiKey + "&callback=initMap");
+            ViewData["ApiKey"] = ApiIs;
+            ViewData["Lat"] = lat;
+            ViewData["Lng"] = lng;
+            ViewData["NameIs"] = UserIs.FirstName;
+            List<ServiceRequested> UserRequests = new List<ServiceRequested>();
+
+            try
+            {
+                List<ServiceRequested> events = db.ServiceRequests.Where(r => r.CustomerId == UserIs.CustomerId).ToList();
+                return View(events);
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: Customer/Create

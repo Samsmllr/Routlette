@@ -5,14 +5,13 @@
 }
 <div class="body-content bg-light">
     <br />
-    <h2>Update</h2>
+    <h2>Update information</h2>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Update information</h4>
         <hr />
         @Html.HiddenFor(model => model.ApplicationId)
         @Html.HiddenFor(model => model.ApplicationUser)
