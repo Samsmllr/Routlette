@@ -26,12 +26,15 @@ namespace RouteScheduler.Models
             BusinessOwner businessOwner = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
             BusinessTemplate businessTemplate = db.BusinessTemplates.Where(t => t.TemplateId == service.TemplateId).FirstOrDefault();
             
-            for(int i = 0; i < preferredDaysList.Count; i++)
+            for(int i = 0; i <= preferredDaysList.Count; i++)
             {
-                bool serviceHappeningOnDay = serviceOnPreferredDays(businessOwner.BusinessId, preferredDaysList[i]);
+                bool serviceHappeningOnDay = ServiceOnPreferredDays(businessOwner.BusinessId, preferredDaysList[i]);
                 if (serviceHappeningOnDay == true)
                 {
 
+                    List<DateTime> availableTimeSlots= BusyDayAvailableTimes(id, preferredDaysList[i]);
+                    
+                    DateListModified.AddRange(availableTimeSlots);
                 }
                 else
                 {
@@ -45,8 +48,17 @@ namespace RouteScheduler.Models
             return DateListModified;
         }
 
+        private List<DateTime> BusyDayAvailableTimes(int id, DateTime date)
+        {
+            List<DateTime> availableDateTimes = new List<DateTime>();
+            List<EventsHolder> busyDayList = gl.GetEventsByIdAndDay(id, date);
 
-        private bool serviceOnPreferredDays(int id, DateTime day)
+
+            return availableDateTimes;
+        }
+
+
+        private bool ServiceOnPreferredDays(int id, DateTime day)
         {
             DateTime dayIs = day;
 
@@ -56,6 +68,9 @@ namespace RouteScheduler.Models
             }
             return true;
         }
+
+
+
 
         private List<DateTime> BusinessDaySchedule(DateTime startingHour, DateTime endingHour, int timeIncriments)
         {
