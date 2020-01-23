@@ -24,7 +24,24 @@ namespace RouteScheduler.Models
             List<DateTime> preferredDaysList = new List<DateTime>() { service.PreferredDayOne, service.PreferredDayTwo, service.PreferredDayThree };
             List<DateTime> DateListModified = new List<DateTime>();
             BusinessOwner businessOwner = db.BusinessOwners.Where(b => b.BusinessId == id).FirstOrDefault();
+            BusinessTemplate businessTemplate = db.BusinessTemplates.Where(t => t.TemplateId == service.TemplateId).FirstOrDefault();
+            
+            for(int i = 0; i < preferredDaysList.Count; i++)
+            {
+                bool serviceHappeningOnDay = serviceOnPreferredDays(businessOwner.BusinessId, preferredDaysList[i]);
+                if (serviceHappeningOnDay == true)
+                {
 
+                }
+                else
+                {
+                    DateTime startingDateAndHour = preferredDaysList[i].Add(businessOwner.DayStart);
+                    DateTime endingDateAndHour = preferredDaysList[i].Add((businessOwner.DayEnd) - businessTemplate.ServiceLength);
+
+                    List<DateTime> newDates = BusinessDaySchedule(startingDateAndHour, endingDateAndHour, 15);
+                    DateListModified.AddRange(newDates);
+                }
+            }
             return DateListModified;
         }
 
@@ -33,12 +50,27 @@ namespace RouteScheduler.Models
         {
             DateTime dayIs = day;
 
-            if (gl.GetEventsByIdAndDay(id, dayIs) == null )
+            if (gl.GetEventsByIdAndDay(id, dayIs) == null)
             {
                 return false;
             }
             return true;
         }
+
+        private List<DateTime> BusinessDaySchedule(DateTime startingHour, DateTime endingHour, int timeIncriments)
+        {
+            List<DateTime> dateTimes = new List<DateTime>();
+            DateTime addTime = startingHour;
+            do
+            {
+                dateTimes.Add(addTime);
+                addTime = addTime.AddMinutes(timeIncriments);
+
+            } while (addTime <= endingHour);
+            return dateTimes;
+        }
+
+
 
 
         public List<DateTime> AvailableTimes(int id, ServiceRequested service)
